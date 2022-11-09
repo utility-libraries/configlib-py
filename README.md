@@ -1,13 +1,16 @@
-# py-config-lib
+# config-library
 utility library to find and load configuration files
 
+
+# Installation
+`pip install config-library`
 
 # Usage Example
 
 ```python
-import config_lib
+import configs
 
-config = config_lib.findAndLoad('app.conf', 'project')
+config = configs.findAndLoad('app.conf', 'project')
 ```
 project-structure
 ```
@@ -33,3 +36,4 @@ places to search for the config-file
 - .json
 - .ini/.conf
 - .toml (python3.11+)
+- .yaml (if `pyyaml` is installed)

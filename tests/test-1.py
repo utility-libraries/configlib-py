@@ -3,9 +3,9 @@
 r"""
 simple test of this package
 """
-import config_lib
+import configs
 
 
-conf = config_lib.findAndLoad('test-config.json')
+conf = configs.findAndLoad('test-config.json')
 
 print(conf)

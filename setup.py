@@ -6,11 +6,11 @@ r"""
 import sys
 import setuptools
 sys.path.append('./src')
-from config_lib import __author__, __version__
+from configs import __author__, __version__
 
 
 setuptools.setup(
-    name="config-lib",
+    name="config-library",
     version=__version__,
     author=__author__,
     # author_email="author@example.com",

@@ -10,6 +10,10 @@ try:
     from .toml_loader import TomlLoader
 except NotImplementedError:
     pass
+try:
+    from .yaml_loader import YamlLoader
+except NotImplementedError:
+    pass
 
 
 def loadConfig(fp):

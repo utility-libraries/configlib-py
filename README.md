@@ -28,3 +28,8 @@ places to search for the config-file
 - /home/user/.config/project/app.conf
 - /etc/app.conf
 - /etc/project/app.conf
+
+# Supported Config-Types
+- .json
+- .ini/.conf
+- .toml (python3.11+)

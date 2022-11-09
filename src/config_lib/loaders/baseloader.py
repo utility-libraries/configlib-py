@@ -3,15 +3,12 @@
 r"""
 
 """
-import typing as t
 
 
-extension_registry: t.Dict[str, 'type(BaseLoader)'] = {}
+extension_registry = {}
 
 
 class BaseLoader:
-    _FILE_EXTENSIONS: list
-
     def __init_subclass__(cls, **kwargs):
         if not hasattr(cls, '_FILE_EXTENSIONS'):
             raise AttributeError("missing attribute '_FILE_EXTENSIONS'")
@@ -20,9 +17,7 @@ class BaseLoader:
         for extension in cls._FILE_EXTENSIONS:
             extension_registry[extension] = cls
 
-    fp: str
-
-    def __init__(self, fp: str):
+    def __init__(self, fp):
         self.fp = fp
 
     def load(self):

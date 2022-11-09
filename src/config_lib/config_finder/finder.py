@@ -64,7 +64,7 @@ class ConfigFinder:
 
         return self._tryFind('/etc')
 
-    def _tryFind(self, where: str):
+    def _tryFind(self, where):
         a = p.join(where, self.name)
         if os.path.isfile(a):
             return a

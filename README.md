@@ -12,7 +12,7 @@ import configs
 
 config = configs.findAndLoad('app.conf', 'project')
 ```
-project-structure
+file-structure
 ```
 /
 ├─ etc/
@@ -22,7 +22,7 @@ project-structure
 │  │  │  ├─ main.py
 │  ├─ .config/
 ```
-places to search for the config-file
+places where `config-library` searches for the config-file
 - /home/user/path/to/repo/src/code/app.conf
 - /home/user/path/to/repo/src/code/project/app.conf
 - /home/user/path/to/repo/app.conf

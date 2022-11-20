@@ -6,6 +6,7 @@ r"""
 import os
 from .baseloader import BaseLoader, extension_registry
 from .json_loader import JsonLoader
+from .jsonc_loader import JsoncLoader
 try:
     from .toml_loader import TomlLoader
 except NotImplementedError:

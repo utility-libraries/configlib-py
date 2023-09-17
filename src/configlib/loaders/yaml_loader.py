@@ -15,4 +15,4 @@ class YamlLoader(baseloader.BaseLoader):
 
     def load(self):
         with open(self.fp, 'r') as file:
-            return yaml.save_load(file)
+            return yaml.safe_load(file)

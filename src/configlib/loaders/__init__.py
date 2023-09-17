@@ -3,38 +3,26 @@
 r"""
 
 """
-import os
 from ..exceptions import NotSupportedError
-from .baseloader import BaseLoader, extension_registry
-from .conf_loader import ConfLoader
-from .xml_loader import XmlLoader
-from .json_loader import JsonLoader
-from .jsonc_loader import JsoncLoader
+from .conf_loader import load_conf, ReturnType as ConfReturnType
+from .xml_loader import load_xml, ReturnType as XmlReturnType
+from .json_loader import load_json, ReturnType as JsonReturnType
+from .jsonc_loader import load_jsonc, ReturnType as JsonCReturnType
 try:
-    from .json5_loader import Json5Loader
+    from .json5_loader import load_json5, ReturnType as Json5ReturnType
 except NotSupportedError:
-    Json5Loader = None
+    def load_json5(*_, **__):
+        raise NotSupportedError()
+    Json5ReturnType = None
 try:
-    from .toml_loader import TomlLoader
+    from .toml_loader import load_toml, ReturnType as TomlReturnType
 except NotSupportedError:
-    TomlLoader = None
+    def load_toml(*_, **__):
+        raise NotSupportedError()
+    TomlReturnType = None
 try:
-    from .yaml_loader import YamlLoader
+    from .yaml_loader import load_yaml, ReturnType as YamlReturnType
 except NotSupportedError:
-    YamlLoader = None
-
-
-SUPPORTED_EXTENSIONS = tuple(extension_registry.keys())
-SUPPORTED_LOADERS = tuple(
-    Loader.__name__ for Loader in extension_registry.values()
-)
-
-
-def loadConfig(fp):
-    fp = os.path.abspath(fp)
-    extension = os.path.splitext(fp)[1]
-    if extension not in SUPPORTED_EXTENSIONS:
-        raise NotSupportedError('unsupported filetype')
-    loader_class = extension_registry[extension]
-    loader = loader_class(fp)
-    return loader.load()
+    def load_yaml(*_, **__):
+        raise NotSupportedError()
+    YamlReturnType = None

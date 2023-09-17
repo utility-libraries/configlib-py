@@ -48,7 +48,8 @@ And in these folders it searches for either directly the config file or a sub-fo
 ```python
 import configlib
 
-config = configlib.findAndLoad('app.conf', 'project')
+
+config = configlib.find_and_load('app.conf', 'project')
 ```
 system file-structure
 ```

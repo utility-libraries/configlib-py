@@ -4,16 +4,15 @@ r"""
 
 """
 from ..exceptions import NotSupportedError
+from ..loader import register_loader
+from .json_loader import ReturnType
 try:
     import json5
 except ModuleNotFoundError:
     raise NotSupportedError('please install config-library[json5] for this')
-from . import baseloader
 
 
-class Json5Loader(baseloader.BaseLoader):
-    _FILE_EXTENSIONS = ('.json5',)
-
-    def load(self):
-        with open(self.fp, 'r') as file:
-            return json5.load(file)
+@register_loader('json5')
+def load_json5(self) -> ReturnType:
+    with open(self.fp, 'r') as file:
+        return json5.load(file)

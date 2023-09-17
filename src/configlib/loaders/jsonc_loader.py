@@ -3,23 +3,23 @@
 r"""
 
 """
-import json
 import re
-from . import baseloader
+import json
+from ..loader import register_loader
+from .json_loader import ReturnType
 
 
-class JsoncLoader(baseloader.BaseLoader):
-    _FILE_EXTENSIONS = ('.jsonc',)
+_REGEX = re.compile(r"(\".*?\"|\'.*?\')|(/\*.*?\*/|//[^\r\n]*$)", re.MULTILINE | re.DOTALL)
 
-    _REGEX = re.compile(r"(\".*?\"|\'.*?\')|(/\*.*?\*/|//[^\r\n]*$)", re.MULTILINE | re.DOTALL)
 
-    def load(self):
-        def __replace(match):
-            return "" if match.group(2) is not None else match.group(1)
+@register_loader('jsonc')
+def load_jsonc(self) -> ReturnType:
+    def __replace(match):
+        return "" if match.group(2) is not None else match.group(1)
 
-        with open(self.fp, 'r') as file:
-            content = file.read()
+    with open(self.fp, 'r') as file:
+        content = file.read()
 
-        content = JsoncLoader._REGEX.sub(__replace, content)
+    content = _REGEX.sub(__replace, content)
 
-        return json.loads(content)
+    return json.loads(content)

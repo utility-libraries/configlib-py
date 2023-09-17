@@ -3,17 +3,19 @@
 r"""
 
 """
+import typing as t
 import xml.etree.ElementTree
 import xml.dom.minidom
-from .baseloader import BaseLoader
+from ..loader import register_loader
 
 
-class XmlLoader(BaseLoader):
-    _FILE_EXTENSIONS = ('.xml',)
+ReturnType: t.TypeAlias = xml.dom.minidom.Element
 
-    def load(self) -> xml.dom.minidom.Element:
-        with open(self.fp, 'r') as file:
-            document: xml.dom.minidom.Document = xml.dom.minidom.parse(file)
-            # document.version, document.encoding, document.standalone
-            root: xml.dom.minidom.Element = document.documentElement
-        return root
+
+@register_loader('xml')
+def load_xml(self) -> ReturnType:
+    with open(self.fp, 'r') as file:
+        document: xml.dom.minidom.Document = xml.dom.minidom.parse(file)
+        # document.version, document.encoding, document.standalone
+        root: xml.dom.minidom.Element = document.documentElement
+    return root

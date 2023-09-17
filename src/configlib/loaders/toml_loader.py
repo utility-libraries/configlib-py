@@ -3,7 +3,9 @@
 r"""
 
 """
+import typing as t
 from ..exceptions import NotSupportedError
+from ..loader import register_loader
 try:
     import tomllib  # python 3.11+
 except ModuleNotFoundError:
@@ -11,12 +13,12 @@ except ModuleNotFoundError:
         import toml as tomllib  # pip install config-library[toml]
     except ModuleNotFoundError:
         raise NotSupportedError('please install config-library[toml] for this')
-from . import baseloader
 
 
-class TomlLoader(baseloader.BaseLoader):
-    _FILE_EXTENSIONS = ('.toml',)
+ReturnType: t.TypeAlias = t.Dict[str, t.Any]
 
-    def load(self):
-        with open(self.fp, 'r') as file:
-            return tomllib.load(file)
+
+@register_loader('toml')
+def load_toml(self) -> ReturnType:
+    with open(self.fp, 'r') as file:
+        return tomllib.load(file)

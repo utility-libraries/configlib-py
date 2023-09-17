@@ -6,6 +6,6 @@ simple test of this package
 import configlib
 
 
-conf = configlib.findAndLoad('test-config.json')
+conf = configlib.find_and_load('test-config.json')
 
 print(conf)

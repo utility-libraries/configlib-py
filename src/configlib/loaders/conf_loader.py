@@ -3,15 +3,17 @@
 r"""
 
 """
+import typing as t
 import configparser
-from . import baseloader
+from ..loader import register_loader
 
 
-class ConfLoader(baseloader.BaseLoader):
-    _FILE_EXTENSIONS = ('.ini', '.conf', '.config')
+ReturnType: t.TypeAlias = configparser.ConfigParser
 
-    def load(self):
-        parser = configparser.ConfigParser()
-        with open(self.fp, 'r') as file:
-            parser.read_file(file)
-        return parser
+
+@register_loader('ini', 'conf', 'config')
+def load_conf(fp: str) -> ReturnType:
+    parser = configparser.ConfigParser()
+    with open(fp, 'r') as file:
+        parser.read_file(file)
+    return parser

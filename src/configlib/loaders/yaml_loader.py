@@ -3,17 +3,19 @@
 r"""
 
 """
+import typing as t
 from ..exceptions import NotSupportedError
+from ..loader import register_loader
 try:
     import yaml
 except ModuleNotFoundError:
     raise NotSupportedError('please install config-library[yaml] for this')
-from . import baseloader
 
 
-class YamlLoader(baseloader.BaseLoader):
-    _FILE_EXTENSIONS = ('.yaml',)
+ReturnType: t.TypeAlias = t.Union[t.Dict[str, t.Any], t.List[t.Any]]
 
-    def load(self):
-        with open(self.fp, 'r') as file:
-            return yaml.safe_load(file)
+
+@register_loader('yaml', 'yml')
+def load_yaml(self) -> ReturnType:
+    with open(self.fp, 'r') as file:
+        return yaml.safe_load(file)

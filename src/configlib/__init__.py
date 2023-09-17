@@ -36,13 +36,13 @@ from .__version__ import __version__, __version_info__
 
 
 from .finder import find
-from .loaders import loadConfig
+from .loader import autoload, SUPPORTED_EXTENSIONS, SUPPORTED_LOADERS
 
 
-def findAndLoad(name: str, namespace: str = None, ns_only: bool = None):
+def find_and_load(name: str, namespace: str = None, ns_only: bool = None):
     fp = find(
         name=name,
         namespace=namespace,
         ns_only=ns_only if ns_only is not None else (namespace is not None),
     )
-    return loadConfig(fp)
+    return autoload(fp)

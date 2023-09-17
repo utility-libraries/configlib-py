@@ -4,12 +4,14 @@ r"""
 
 """
 import json
-from . import baseloader
+import typing as t
+from ..loader import register_loader
 
 
-class JsonLoader(baseloader.BaseLoader):
-    _FILE_EXTENSIONS = ('.json',)
+ReturnType: t.TypeAlias = t.Union[t.Dict[str, t.Any], t.List[t.Any]]
 
-    def load(self):
-        with open(self.fp, 'r') as file:
-            return json.load(file)
+
+@register_loader('json')
+def load_json(self) -> ReturnType:
+    with open(self.fp, 'r') as file:
+        return json.load(file)

@@ -1,6 +1,7 @@
 # config-library
 utility library to find and load configuration files
 
+> this project is undergoing major changes
 
 # Installation
 `pip install config-library`

@@ -3,13 +3,14 @@
 r"""
 
 """
+from ..exceptions import NotSupportedError
 try:
     import tomllib  # python 3.11+
 except ModuleNotFoundError:
     try:
         import toml as tomllib  # pip install config-library[toml]
     except ModuleNotFoundError:
-        raise NotImplementedError('please install config-library[toml] for this')
+        raise NotSupportedError('please install config-library[toml] for this')
 from . import baseloader
 
 

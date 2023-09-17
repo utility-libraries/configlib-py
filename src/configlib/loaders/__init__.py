@@ -12,15 +12,15 @@ from .json_loader import JsonLoader
 from .jsonc_loader import JsoncLoader
 try:
     from .json5_loader import Json5Loader
-except NotImplementedError:
+except NotSupportedError:
     Json5Loader = None
 try:
     from .toml_loader import TomlLoader
-except NotImplementedError:
+except NotSupportedError:
     TomlLoader = None
 try:
     from .yaml_loader import YamlLoader
-except NotImplementedError:
+except NotSupportedError:
     YamlLoader = None
 
 

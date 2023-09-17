@@ -3,10 +3,11 @@
 r"""
 
 """
+from ..exceptions import NotSupportedError
 try:
     import json5
 except ModuleNotFoundError:
-    raise NotImplementedError('please install config-library[json5] for this')
+    raise NotSupportedError('please install config-library[json5] for this')
 from . import baseloader
 
 

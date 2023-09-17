@@ -6,6 +6,7 @@ r"""
 import os
 import os.path as p
 import sys
+from ..exceptions import ConfigNotFoundError
 
 
 class ConfigFinder:
@@ -21,7 +22,7 @@ class ConfigFinder:
     def find(self):
         found = self.findLocal() or self.findGit() or self.findUser() or self.findGlobal()
         if found is None:
-            raise FileNotFoundError(f"config for {self.name!r} not found")
+            raise ConfigNotFoundError(f"config for {self.name!r} not found")
         return found
 
     def findLocal(self):

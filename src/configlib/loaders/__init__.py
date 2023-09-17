@@ -4,6 +4,7 @@ r"""
 
 """
 import os
+from ..exceptions import NotSupportedError
 from .baseloader import BaseLoader, extension_registry
 from .conf_loader import ConfLoader
 from .xml_loader import XmlLoader
@@ -23,11 +24,17 @@ except NotImplementedError:
     YamlLoader = None
 
 
+SUPPORTED_EXTENSIONS = tuple(extension_registry.keys())
+SUPPORTED_LOADERS = tuple(
+    Loader.__name__ for Loader in extension_registry.values()
+)
+
+
 def loadConfig(fp):
     fp = os.path.abspath(fp)
     extension = os.path.splitext(fp)[1]
-    loader_class = extension_registry.get(extension, None)
-    if loader_class is None:
-        raise TypeError('unsupported filetype')
+    if extension not in SUPPORTED_EXTENSIONS:
+        raise NotSupportedError('unsupported filetype')
+    loader_class = extension_registry[extension]
     loader = loader_class(fp)
     return loader.load()

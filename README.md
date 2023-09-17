@@ -5,8 +5,9 @@ utility library to find and load configuration files
 * [config-library](#config-library)
   * [Installation](#installation)
   * [Supported Config-Types](#supported-config-types)
-  * [Places to search for](#places-to-search-for)
-  * [Usage Example](#usage-example)
+  * [How does `configlib` work](#how-does-configlib-work)
+    * [Places to search for](#places-to-search-for)
+    * [Usage Example](#usage-example)
 <!-- TOC -->
 
 ## Installation
@@ -28,18 +29,20 @@ utility library to find and load configuration files
 | `.toml`                  | `config-library[toml]` or python3.11+ | https://toml.io/                                                                    |
 | `.yaml`                  | `config-library[yaml]`                | https://en.wikipedia.org/wiki/YAML                                                  |
 
-## Places to search for
+## How does `configlib` work
+
+### Places to search for
 
 ```
-/etc/
+/path/to/your/source/code/
+/path/to/your/git-repo/
 /home/<user>/
-/path/to/git-repo/
-/path/to/source/code/
+/etc/
 ```
 
-And in these folder it searches for either directly the config file or a sub-folder that's named like your project.
+And in these folders it searches for either directly the config file or a sub-folder that's named like your project.
 
-## Usage Example
+### Usage Example
 
 ```python
 import configlib

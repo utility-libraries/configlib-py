@@ -4,9 +4,12 @@ r"""
 
 """
 try:
-    import tomllib
+    import tomllib  # python 3.11+
 except ModuleNotFoundError:
-    raise NotImplementedError('python version to low')
+    try:
+        import toml as tomllib  # pip install config-library[toml]
+    except ModuleNotFoundError:
+        raise NotImplementedError('please install config-library[toml] for this')
 from . import baseloader
 
 

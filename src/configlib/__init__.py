@@ -3,7 +3,7 @@
 r"""
 MIT License
 
-Copyright (c) 2022 PlayerG9
+Copyright (c) 2023 PlayerG9
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -25,14 +25,14 @@ SOFTWARE.
 """
 
 __author__ = "PlayerG9"
-__copyright__ = "Copyright 2021, PlayerG9"
+__copyright__ = "Copyright 2023, PlayerG9"
 __credits__ = ["PlayerG9"]
 __license__ = "MIT"
-__version_info__ = (0, 2, 0)
-__version__ = '.'.join(str(_) for _ in __version_info__)
 __maintainer__ = "PlayerG9"
 __email__ = None
 __status__ = "Prototype"  # Prototype, Development, Production
+__description__ = "utility library to find and load configuration files"
+from .__version__ import __version__, __version_info__
 
 
 from .config_finder import findConfig

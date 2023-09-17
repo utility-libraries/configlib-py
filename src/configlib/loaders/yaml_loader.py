@@ -6,7 +6,7 @@ r"""
 try:
     import yaml
 except ModuleNotFoundError:
-    raise NotImplementedError('please install pyyaml for this')
+    raise NotImplementedError('please install config-library[yaml] for this')
 from . import baseloader
 
 

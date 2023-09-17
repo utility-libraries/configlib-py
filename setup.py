@@ -3,31 +3,55 @@
 r"""
 
 """
-import sys
+import sys; sys.path.append('./src')  # noqa
 import setuptools
-sys.path.append('./src')
-from configs import __author__, __version__
+from configlib import __author__, __version__, __description__, __license__
 
+
+install_requires = []
+
+yaml_requires = ["pyyaml"]
+toml_requires = ["toml"]
+all_requires = [yaml_requires, toml_requires]
+
+extras_require = {
+    'yaml': yaml_requires,
+    'toml': toml_requires,
+    'all': all_requires,
+}
 
 setuptools.setup(
     name="config-library",
     version=__version__,
-    author=__author__,
-    # author_email="author@example.com",
-    description="utility library to find and load configuration files",
+    description=__description__,
     long_description=open("README.md", "r", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/PlayerG9/py-config-lib",
+    author=__author__,
+    license=__license__,
+    url="https://github.com/PlayerG9/configlib-py",
     project_urls={
         "Author Github": "https://github.com/PlayerG9",
-        "Bug Tracker": "https://github.com/PlayerG9/py-config-lib/issues",
+        "Homepage": "https://github.com/PlayerG9/configlib-py/",
+        "Bug Tracker": "https://github.com/PlayerG9/configlib-py/issues",
     },
     classifiers=[
-        "Programming Language :: Python :: 3",
+        "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
+        "Natural Language :: English",
         "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Topic :: Utilities",
     ],
-    package_dir={"": "src"},
-    packages=setuptools.find_packages(where="src"),
     python_requires=">=3.5",
+    install_requires=install_requires,
+    extras_require=extras_require,
+    test_suite="tests",
 )

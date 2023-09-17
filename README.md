@@ -1,19 +1,35 @@
 # config-library
 utility library to find and load configuration files
 
-> this project is undergoing major changes
-
-# Installation
+## Installation
 `pip install config-library`
 
-# Usage Example
+## Supported Config-Types
+- .json
+- .jsonc
+- .ini/.conf
+- .toml (python3.11+ or `pip3 install config-library[toml]`)
+- .yaml (`pip3 install config-library[yaml]`)
+
+## Places to search for
+
+```
+/etc/
+/home/<user>/
+/path/to/git-repo/
+/path/to/source/code/
+```
+
+And in these folder it searches for either directly the config file or a sub-folder that's named like your project.
+
+## Usage Example
 
 ```python
-import configs
+import configlib
 
-config = configs.findAndLoad('app.conf', 'project')
+config = configlib.findAndLoad('app.conf', 'project')
 ```
-file-structure
+system file-structure
 ```
 /
 ├─ etc/
@@ -32,9 +48,3 @@ places where `config-library` searches for the config-file
 - /home/user/.config/project/app.conf
 - /etc/app.conf
 - /etc/project/app.conf
-
-# Supported Config-Types
-- .json
-- .ini/.conf
-- .toml (python3.11+)
-- .yaml (if `pyyaml` is installed)

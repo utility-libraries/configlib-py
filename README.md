@@ -1,15 +1,32 @@
 # config-library
 utility library to find and load configuration files
 
+<!-- TOC -->
+* [config-library](#config-library)
+  * [Installation](#installation)
+  * [Supported Config-Types](#supported-config-types)
+  * [Places to search for](#places-to-search-for)
+  * [Usage Example](#usage-example)
+<!-- TOC -->
+
 ## Installation
-`pip install config-library`
+
+- `pip install config-library`
+- `pip install config-library[all]`
+- `pip install config-library[json5]`
+- `pip install config-library[toml]`
+- `pip install config-library[yaml]`
 
 ## Supported Config-Types
-- .json
-- .jsonc
-- .ini/.conf
-- .toml (python3.11+ or `pip3 install config-library[toml]`)
-- .yaml (`pip3 install config-library[yaml]`)
+
+| extension                | requires                              | link                                                                                |
+|--------------------------|---------------------------------------|-------------------------------------------------------------------------------------|
+| `.ini`/`.conf`/`.config` |                                       | https://en.wikipedia.org/wiki/INI_file                                              |
+| `.json`                  |                                       | https://en.wikipedia.org/wiki/JSON                                                  |
+| `.jsonc`                 |                                       | https://changelog.com/news/jsonc-is-a-superset-of-json-which-supports-comments-6LwR |
+| `.json5`                 | `config-library[json5]`               | https://json5.org/                                                                  |
+| `.toml`                  | `config-library[toml]` or python3.11+ | https://toml.io/                                                                    |
+| `.yaml`                  | `config-library[yaml]`                | https://en.wikipedia.org/wiki/YAML                                                  |
 
 ## Places to search for
 

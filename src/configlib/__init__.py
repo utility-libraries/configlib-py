@@ -35,10 +35,14 @@ __description__ = "utility library to find and load configuration files"
 from .__version__ import __version__, __version_info__
 
 
-from .config_finder import findConfig
+from .finder import find
 from .loaders import loadConfig
 
 
-def findAndLoad(name: str, namespace: str = None):
-    fp = findConfig(name=name, namespace=namespace)
+def findAndLoad(name: str, namespace: str = None, ns_only: bool = None):
+    fp = find(
+        name=name,
+        namespace=namespace,
+        ns_only=ns_only if ns_only is not None else (namespace is not None),
+    )
     return loadConfig(fp)

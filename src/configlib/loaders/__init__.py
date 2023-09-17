@@ -10,11 +10,11 @@ from .jsonc_loader import JsoncLoader
 try:
     from .toml_loader import TomlLoader
 except NotImplementedError:
-    pass
+    TomlLoader = None
 try:
     from .yaml_loader import YamlLoader
 except NotImplementedError:
-    pass
+    YamlLoader = None
 
 
 def loadConfig(fp):

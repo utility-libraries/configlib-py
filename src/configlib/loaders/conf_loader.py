@@ -7,7 +7,7 @@ import configparser
 from . import baseloader
 
 
-class ConfigLoader(baseloader.BaseLoader):
+class ConfLoader(baseloader.BaseLoader):
     _FILE_EXTENSIONS = ('.ini', '.conf', '.config')
 
     def load(self):

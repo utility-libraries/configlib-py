@@ -28,6 +28,7 @@ utility library to find and load configuration files
 | `.json5`                 | `config-library[json5]`               | https://json5.org/                                                                  |
 | `.toml`                  | `config-library[toml]` or python3.11+ | https://toml.io/                                                                    |
 | `.yaml`                  | `config-library[yaml]`                | https://en.wikipedia.org/wiki/YAML                                                  |
+| `.xml`                   |                                       | https://en.wikipedia.org/wiki/XML                                                   |
 
 ## How does `configlib` work
 

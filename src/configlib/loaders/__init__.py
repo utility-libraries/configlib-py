@@ -5,8 +5,14 @@ r"""
 """
 import os
 from .baseloader import BaseLoader, extension_registry
+from .conf_loader import ConfLoader
+from .xml_loader import XmlLoader
 from .json_loader import JsonLoader
 from .jsonc_loader import JsoncLoader
+try:
+    from .json5_loader import Json5Loader
+except NotImplementedError:
+    Json5Loader = None
 try:
     from .toml_loader import TomlLoader
 except NotImplementedError:

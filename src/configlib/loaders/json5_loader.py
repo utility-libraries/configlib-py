@@ -10,7 +10,7 @@ except ModuleNotFoundError:
 from . import baseloader
 
 
-class YamlLoader(baseloader.BaseLoader):
+class Json5Loader(baseloader.BaseLoader):
     _FILE_EXTENSIONS = ('.json5',)
 
     def load(self):

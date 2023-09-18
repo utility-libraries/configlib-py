@@ -5,15 +5,17 @@ utility library to find and load configuration files
 * [config-library](#config-library)
   * [Installation](#installation)
   * [Supported Config-Types](#supported-config-types)
-  * [How does `configlib` work](#how-does-configlib-work)
+  * [Install Variations](#install-variations)
+  * [More about `configlib`](#more-about-configlib)
     * [Places to search for](#places-to-search-for)
-    * [Usage Example](#usage-example)
+  * [Usage Example](#usage-example)
 <!-- TOC -->
 
 ## Installation
 
 - `pip install config-library`
 - `pip install config-library[all]`
+- `pip install config-library[watcher]`
 - `pip install config-library[json5]`
 - `pip install config-library[toml]`
 - `pip install config-library[yaml]`
@@ -30,20 +32,34 @@ utility library to find and load configuration files
 | `.yaml`                  | `config-library[yaml]`                | https://en.wikipedia.org/wiki/YAML                                                  |
 | `.xml`                   |                                       | https://en.wikipedia.org/wiki/XML                                                   |
 
-## How does `configlib` work
+## Install Variations
+
+| variation                 | information                                       |
+|---------------------------|---------------------------------------------------|
+| `config-library[all]`     | adds all dependencies from the variations below   |
+| `config-library[watcher]` | adds support to watch the config-file for changes |
+| `config-library[json5]`   | support to load .json5 files                      |
+| `config-library[toml]`    | support to load .toml files                       |
+| `config-library[yaml]`    | support to load .yaml files                       |
+
+
+## More about `configlib`
 
 ### Places to search for
 
 ```
 /path/to/your/source/code/
 /path/to/your/git-repo/
+/home/<user>/.config/
 /home/<user>/
 /etc/
 ```
 
+> Note: On Windows there are respective counterparts.
+
 And in these folders it searches for either directly the config file or a sub-folder that's named like your project.
 
-### Usage Example
+## Usage Example
 
 ```python
 import configlib

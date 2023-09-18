@@ -22,14 +22,14 @@ utility library to find and load configuration files
 
 ## Supported Config-Types
 
-| extension                | requires                              | link                                                                                |
+| extension                | requires                              | link (for more information)                                                         |
 |--------------------------|---------------------------------------|-------------------------------------------------------------------------------------|
 | `.ini`/`.conf`/`.config` |                                       | https://en.wikipedia.org/wiki/INI_file                                              |
 | `.json`                  |                                       | https://en.wikipedia.org/wiki/JSON                                                  |
 | `.jsonc`                 |                                       | https://changelog.com/news/jsonc-is-a-superset-of-json-which-supports-comments-6LwR |
 | `.json5`                 | `config-library[json5]`               | https://json5.org/                                                                  |
 | `.toml`                  | `config-library[toml]` or python3.11+ | https://toml.io/                                                                    |
-| `.yaml`                  | `config-library[yaml]`                | https://en.wikipedia.org/wiki/YAML                                                  |
+| `.yaml`/`.yml`           | `config-library[yaml]`                | https://en.wikipedia.org/wiki/YAML                                                  |
 | `.xml`                   |                                       | https://en.wikipedia.org/wiki/XML                                                   |
 
 ## Install Variations
@@ -62,9 +62,34 @@ And in these folders it searches for either directly the config file or a sub-fo
 ## Usage Example
 
 ```python
+# this way it's possible to write
+# > from config import ...
+# and it automatically restarts the python-script if app.json changes
+# IMPORTANT: see configlib.configurator.restarter:restart() before usage
 import configlib
+configlib.Configurator("app.json").find().load().install().make_restart_on_change()
+from config import HOST, PORT
+...
+server.bind((HOST, PORT))
+```
+```python
+import configlib
+config = configlib.autoload("./app.conf")
+```
+```python
+from configlib.finder import find, places
+config_file = find(
+  name="app.conf",  # name of config-file is 'app.conf'
+  places=[places.local, places.user],  # search in main.py folder and ~/.config/
+  namespace="myproject",
+  ns_only=True,  # only search for 'myproject/app.conf' in places
+)
+```
 
+### More in detail
 
+```python
+import configlib
 config = configlib.find_and_load('app.conf', 'project')
 ```
 system file-structure
@@ -84,5 +109,7 @@ places where `config-library` searches for the config-file
 - /home/user/path/to/repo/project/app.conf
 - /home/user/.config/app.conf
 - /home/user/.config/project/app.conf
+- /home/user/app.conf
+- /home/user/project/app.conf
 - /etc/app.conf
 - /etc/project/app.conf

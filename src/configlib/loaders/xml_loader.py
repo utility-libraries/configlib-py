@@ -14,6 +14,14 @@ ReturnType: t.TypeAlias = xml.dom.minidom.Element
 
 @register_loader('xml')
 def load_xml(self) -> ReturnType:
+    r"""
+    <?xml version="1.0" encoding="UTF-8"?>
+    <message>
+        <warning>
+             Hello World
+        </warning>
+    </message>
+    """
     with open(self.fp, 'r') as file:
         document: xml.dom.minidom.Document = xml.dom.minidom.parse(file)
         # document.version, document.encoding, document.standalone

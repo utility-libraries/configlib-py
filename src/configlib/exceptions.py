@@ -15,3 +15,7 @@ class ConfigNotFoundError(ConfigLibError):
 
 class NotSupportedError(ConfigLibError):
     pass
+
+
+class CallOrderError(ConfigLibError):
+    pass

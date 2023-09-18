@@ -2,19 +2,19 @@
 # -*- coding=utf-8 -*-
 r"""
 # main.py
-import configlib
-config_file = configlib.find("myapp.json")
-config = configlib.autoload(config_file)
-configlib.install(config, fp=config_file)
+    import configlib
+    config_file = configlib.find("myapp.json")
+    config = configlib.autoload(config_file)
+    configlib.install(config, fp=config_file)
 
 # config.pyi
-HOST: str
-PORT: int
+    HOST: str
+    PORT: int
 
 # sub.py
-import config
-from config import HOST, PORT
-...
+    import config
+    from config import HOST, PORT
+    ...
 """
 import sys
 import os.path as p
@@ -47,3 +47,14 @@ def install_config(config, *, fp: str = None):
             setattr(module, key, getattr(config, key))
 
     sys.modules['config'] = module
+
+
+def reinstall_config(config, *, fp: str = None):
+    r"""
+
+    :param config: the config-object to translate
+    :param fp: set __file__ attribute
+    :return:
+    """
+    del sys.modules['config']
+    install_config(config=config, fp=fp)

@@ -38,6 +38,7 @@ from .__version__ import __version__, __version_info__
 from .finder import find
 from .loader import autoload, SUPPORTED_EXTENSIONS, SUPPORTED_LOADERS
 from . import loaders
+from .configurator import Configurator
 
 
 def find_and_load(name: str, namespace: str = None, ns_only: bool = None):

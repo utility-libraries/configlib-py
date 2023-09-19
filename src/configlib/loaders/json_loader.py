@@ -12,7 +12,7 @@ ReturnType: t.TypeAlias = t.Union[t.Dict[str, t.Any], t.List[t.Any]]
 
 
 @register_loader('json')
-def load_json(self) -> ReturnType:
+def load_json(fp) -> ReturnType:
     r"""
     {
       "first_name": "John",
@@ -43,5 +43,5 @@ def load_json(self) -> ReturnType:
       "spouse": null
     }
     """
-    with open(self.fp, 'r') as file:
+    with open(fp, 'r') as file:
         return json.load(file)

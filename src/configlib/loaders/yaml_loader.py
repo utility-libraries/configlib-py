@@ -16,7 +16,7 @@ ReturnType: t.TypeAlias = t.Union[t.Dict[str, t.Any], t.List[t.Any]]
 
 
 @register_loader('yaml', 'yml')
-def load_yaml(self) -> ReturnType:
+def load_yaml(fp) -> ReturnType:
     r"""
     receipt:     Oz-Ware Purchase Invoice
     date:        2012-08-06
@@ -51,5 +51,5 @@ def load_yaml(self) -> ReturnType:
         Pay no attention to the
         man behind the curtain.
     """
-    with open(self.fp, 'r') as file:
+    with open(fp, 'r') as file:
         return yaml.safe_load(file)

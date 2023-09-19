@@ -19,7 +19,7 @@ ReturnType: t.TypeAlias = t.Dict[str, t.Any]
 
 
 @register_loader('toml')
-def load_toml(self) -> ReturnType:
+def load_toml(fp) -> ReturnType:
     r"""
     # This is a TOML document
 
@@ -45,5 +45,5 @@ def load_toml(self) -> ReturnType:
     ip = "10.0.0.2"
     role = "backend"
     """
-    with open(self.fp, 'r') as file:
+    with open(fp, 'r') as file:
         return tomllib.load(file)

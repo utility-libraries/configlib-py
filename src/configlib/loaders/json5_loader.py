@@ -13,7 +13,7 @@ except ModuleNotFoundError:
 
 
 @register_loader('json5')
-def load_json5(self) -> ReturnType:
+def load_json5(fp) -> ReturnType:
     r"""
     {
       // comments
@@ -28,5 +28,5 @@ def load_json5(self) -> ReturnType:
       "backwardsCompatible": "with JSON",
     }
     """
-    with open(self.fp, 'r') as file:
+    with open(fp, 'r') as file:
         return json5.load(file)

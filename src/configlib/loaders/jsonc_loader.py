@@ -13,7 +13,7 @@ _REGEX = re.compile(r"(\".*?\"|\'.*?\')|(/\*.*?\*/|//[^\r\n]*$)", re.MULTILINE |
 
 
 @register_loader('jsonc')
-def load_jsonc(self) -> ReturnType:
+def load_jsonc(fp) -> ReturnType:
     r"""
     {
         /* This is an example
@@ -33,7 +33,7 @@ def load_jsonc(self) -> ReturnType:
     def __replace(match):
         return "" if match.group(2) is not None else match.group(1)
 
-    with open(self.fp, 'r') as file:
+    with open(fp, 'r') as file:
         content = file.read()
 
     content = _REGEX.sub(__replace, content)

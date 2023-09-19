@@ -12,7 +12,7 @@ ReturnType: t.TypeAlias = t.Union[t.Dict[str, t.Any], t.List[t.Any]]
 
 
 @register_loader('json')
-def load_json(fp) -> ReturnType:
+def load_json(fp: str) -> ReturnType:
     r"""
     {
       "first_name": "John",

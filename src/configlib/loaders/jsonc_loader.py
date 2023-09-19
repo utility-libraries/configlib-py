@@ -13,7 +13,7 @@ _REGEX = re.compile(r"(\".*?\"|\'.*?\')|(/\*.*?\*/|//[^\r\n]*$)", re.MULTILINE |
 
 
 @register_loader('jsonc')
-def load_jsonc(fp) -> ReturnType:
+def load_jsonc(fp: str) -> ReturnType:
     r"""
     {
         /* This is an example

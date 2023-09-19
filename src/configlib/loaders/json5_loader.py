@@ -13,7 +13,7 @@ except ModuleNotFoundError:
 
 
 @register_loader('json5')
-def load_json5(fp) -> ReturnType:
+def load_json5(fp: str) -> ReturnType:
     r"""
     {
       // comments

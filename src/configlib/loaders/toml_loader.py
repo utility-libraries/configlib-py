@@ -19,7 +19,7 @@ ReturnType: t.TypeAlias = t.Dict[str, t.Any]
 
 
 @register_loader('toml')
-def load_toml(fp) -> ReturnType:
+def load_toml(fp: str) -> ReturnType:
     r"""
     # This is a TOML document
 

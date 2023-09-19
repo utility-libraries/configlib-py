@@ -3,6 +3,8 @@
 r"""
 
 """
+import os
+import typing as t
 from ..exceptions import NotSupportedError
 from ..loader import register_loader
 from .json_loader import ReturnType
@@ -13,7 +15,7 @@ except ModuleNotFoundError:
 
 
 @register_loader('json5')
-def load_json5(fp: str) -> ReturnType:
+def load_json5(fp: t.Union[str, os.PathLike]) -> ReturnType:
     r"""
     {
       // comments

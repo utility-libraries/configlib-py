@@ -3,6 +3,7 @@
 r"""
 
 """
+import os
 import typing as t
 from ..exceptions import NotSupportedError
 from ..loader import register_loader
@@ -19,7 +20,7 @@ ReturnType: t.TypeAlias = t.Dict[str, t.Any]
 
 
 @register_loader('toml')
-def load_toml(fp: str) -> ReturnType:
+def load_toml(fp: t.Union[str, os.PathLike]) -> ReturnType:
     r"""
     # This is a TOML document
 

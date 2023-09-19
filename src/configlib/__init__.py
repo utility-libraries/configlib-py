@@ -36,7 +36,7 @@ from .__version__ import __version__, __version_info__
 
 
 from .finder import find
-from .loader import autoload, SUPPORTED_EXTENSIONS, SUPPORTED_LOADERS
+from .loader import autoload, get_supported_extensions, get_supported_loaders
 from . import loaders
 from .configurator import Configurator
 

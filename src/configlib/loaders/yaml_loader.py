@@ -3,6 +3,7 @@
 r"""
 
 """
+import os
 import typing as t
 from ..exceptions import NotSupportedError
 from ..loader import register_loader
@@ -16,7 +17,7 @@ ReturnType: t.TypeAlias = t.Union[t.Dict[str, t.Any], t.List[t.Any]]
 
 
 @register_loader('yaml', 'yml')
-def load_yaml(fp: str) -> ReturnType:
+def load_yaml(fp: t.Union[str, os.PathLike]) -> ReturnType:
     r"""
     receipt:     Oz-Ware Purchase Invoice
     date:        2012-08-06

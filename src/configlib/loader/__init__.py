@@ -3,12 +3,17 @@
 r"""
 
 """
+import os
 import typing as t
 from ..exceptions import NotSupportedError
 from .registry import REGISTRY, register_loader
 
 
-def SUPPORTED_EXTENSIONS() -> t.Iterable[str]:
+__all__ = ["NotSupportedError", "REGISTRY", "register_loader",
+           "get_supported_loaders", "get_supported_extensions", "autoload"]
+
+
+def get_supported_extensions() -> t.Iterable[str]:
     r"""
     return currently supported file extensions
 
@@ -17,7 +22,7 @@ def SUPPORTED_EXTENSIONS() -> t.Iterable[str]:
     return tuple(REGISTRY.keys())
 
 
-def SUPPORTED_LOADERS() -> t.Iterable[str]:
+def get_supported_loaders() -> t.Iterable[str]:
     r"""
     return the names of the currently supported loaders
 
@@ -28,7 +33,7 @@ def SUPPORTED_LOADERS() -> t.Iterable[str]:
     )
 
 
-def autoload(fp: str):
+def autoload(fp: t.Union[str, os.PathLike]):
     r"""
     find the correct loader for the passed file, parses it and returns the result
 

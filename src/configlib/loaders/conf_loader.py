@@ -3,6 +3,7 @@
 r"""
 
 """
+import os
 import typing as t
 import configparser
 from ..loader import register_loader
@@ -12,7 +13,7 @@ ReturnType: t.TypeAlias = configparser.ConfigParser
 
 
 @register_loader('ini', 'conf', 'config')
-def load_conf(fp: str) -> ReturnType:
+def load_conf(fp: t.Union[str, os.PathLike]) -> ReturnType:
     r"""
     ; last modified 1 April 2001 by John Doe
     [owner]

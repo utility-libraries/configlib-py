@@ -3,11 +3,12 @@
 r"""
 
 """
+import os
 import typing as t
 import warnings
 
 
-T_LOADER: t.TypeAlias = t.Callable[[str], t.Any]
+T_LOADER: t.TypeAlias = t.Callable[[t.Union[str, os.PathLike]], t.Any]
 
 
 REGISTRY: t.Dict[str, T_LOADER] = {}

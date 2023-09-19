@@ -3,6 +3,7 @@
 r"""
 
 """
+import os
 import typing as t
 import xml.etree.ElementTree
 import xml.dom.minidom
@@ -13,7 +14,7 @@ ReturnType: t.TypeAlias = xml.dom.minidom.Element
 
 
 @register_loader('xml')
-def load_xml(fp: str) -> ReturnType:
+def load_xml(fp: t.Union[str, os.PathLike]) -> ReturnType:
     r"""
     <?xml version="1.0" encoding="UTF-8"?>
     <message>

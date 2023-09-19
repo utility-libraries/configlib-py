@@ -3,6 +3,7 @@
 r"""
 
 """
+import os
 import json
 import typing as t
 from ..loader import register_loader
@@ -12,7 +13,7 @@ ReturnType: t.TypeAlias = t.Union[t.Dict[str, t.Any], t.List[t.Any]]
 
 
 @register_loader('json')
-def load_json(fp: str) -> ReturnType:
+def load_json(fp: t.Union[str, os.PathLike]) -> ReturnType:
     r"""
     {
       "first_name": "John",

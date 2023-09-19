@@ -3,8 +3,10 @@
 r"""
 https://github.com/muhammadmuzzammil1998/jsonc
 """
+import os
 import re
 import json
+import typing as t
 from ..loader import register_loader
 from .json_loader import ReturnType
 
@@ -13,7 +15,7 @@ _REGEX = re.compile(r"(\".*?\"|\'.*?\')|(/\*.*?\*/|//[^\r\n]*$)", re.MULTILINE |
 
 
 @register_loader('jsonc')
-def load_jsonc(fp: str) -> ReturnType:
+def load_jsonc(fp: t.Union[str, os.PathLike]) -> ReturnType:
     r"""
     {
         /* This is an example

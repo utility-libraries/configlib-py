@@ -1,0 +1,13 @@
+{
+    /* This is an example
+       for block comment.  */
+    "foot": "bar foo",  // Comments
+    "true": false,      // Improve readability
+    "number": 42,       // Number will always be 42
+    /* Comments are ignored while
+       generating JSON from JSONC. */
+    // "object": {
+    //   "test": "done"
+    // }
+    "array": [1, 2, 3]
+}

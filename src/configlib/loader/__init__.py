@@ -38,7 +38,7 @@ def autoload(fp: t.Union[str, os.PathLike]):
     find the correct loader for the passed file, parses it and returns the result
 
     :param fp: path of the config-file
-    :return:
+    :return: depends on the file-extension
     """
     import os.path as p
     ext = p.splitext(fp)[1][1:]

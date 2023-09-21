@@ -18,6 +18,12 @@ class Configurator:
     """
 
     def __init__(self, name: str, *, namespace: str = None, ns_only: bool = None, restart_on_change: bool = False):
+        r"""
+        :param name: name of the configuration file
+        :param namespace: namespace of the project
+        :param ns_only: only search for {namespace}/{name}
+        :param restart_on_change: restart the whole application if the configuration file changes
+        """
         self._name = name
         self._namespace = namespace
         self._ns_only = ns_only

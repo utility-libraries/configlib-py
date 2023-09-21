@@ -1,6 +1,8 @@
 # config-library
 utility library to find and load configuration files
 
+> see the [documentation](https://playerg9.github.io/configlib-py/) for more information
+
 <!-- TOC -->
 * [config-library](#config-library)
   * [Installation](#installation)
@@ -22,15 +24,15 @@ utility library to find and load configuration files
 
 ## Supported Config-Types
 
-| extension                | requires                              | link (for more information)                                                         |
-|--------------------------|---------------------------------------|-------------------------------------------------------------------------------------|
-| `.ini`/`.conf`/`.config` |                                       | https://en.wikipedia.org/wiki/INI_file                                              |
-| `.json`                  |                                       | https://en.wikipedia.org/wiki/JSON                                                  |
-| `.jsonc`                 |                                       | https://changelog.com/news/jsonc-is-a-superset-of-json-which-supports-comments-6LwR |
-| `.json5`                 | `config-library[json5]`               | https://json5.org/                                                                  |
-| `.toml`                  | `config-library[toml]` or python3.11+ | https://toml.io/                                                                    |
-| `.yaml`/`.yml`           | `config-library[yaml]`                | https://en.wikipedia.org/wiki/YAML                                                  |
-| `.xml`                   |                                       | https://en.wikipedia.org/wiki/XML                                                   |
+| extension                | requires                              | link (for more information)                                                           |
+|--------------------------|---------------------------------------|---------------------------------------------------------------------------------------|
+| `.ini`/`.conf`/`.config` |                                       | <https://en.wikipedia.org/wiki/INI_file>                                              |
+| `.json`                  |                                       | <https://en.wikipedia.org/wiki/JSON>                                                  |
+| `.jsonc`                 |                                       | <https://changelog.com/news/jsonc-is-a-superset-of-json-which-supports-comments-6LwR> |
+| `.json5`                 | `config-library[json5]`               | <https://json5.org/>                                                                  |
+| `.toml`                  | `config-library[toml]` or python3.11+ | <https://toml.io/>                                                                    |
+| `.yaml`/`.yml`           | `config-library[yaml]`                | <https://en.wikipedia.org/wiki/YAML>                                                  |
+| `.xml`                   |                                       | <https://en.wikipedia.org/wiki/XML>                                                   |
 
 ## Install Variations
 

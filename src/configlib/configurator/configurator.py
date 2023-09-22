@@ -131,6 +131,14 @@ class Configurator:
         self._watcher.on_change(self._handle_change)
         return self
 
+    def stop_watching(self) -> 'Configurator':
+        if not self._watcher:
+            return self
+        self._watcher.stop()
+        self._watcher.join()
+        self._watcher = None
+        return self
+
     def on_change(self, handler):
         r"""
         register handler to be called when the configuration file changes

@@ -27,6 +27,9 @@ def find(name: str, *, places: T_PLACES = None, namespace: str = None, ns_only: 
         places = DEFAULT_PLACES
 
     for place in places:
+        if callable(place):
+            place = place()
+
         if not p.isdir(place):
             continue
 

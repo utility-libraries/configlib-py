@@ -132,6 +132,9 @@ class Configurator:
         return self
 
     def stop_watching(self) -> 'Configurator':
+        r"""
+        stop watching for changes
+        """
         if not self._watcher:
             return self
         self._watcher.stop()

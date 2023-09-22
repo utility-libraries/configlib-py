@@ -59,6 +59,12 @@ class Configurator:
         watch for changes to the configuration file and call handlers registered with .on_change()
         """
         ...
+    
+    def stop_watching(self) -> Self:
+        r"""
+        stop watching for changes
+        """
+        ...
 
     def on_change(self, handler):
         r"""

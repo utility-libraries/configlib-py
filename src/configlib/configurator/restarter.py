@@ -9,7 +9,7 @@ import atexit
 from .atrestart import _run_restartfuncs
 
 
-def restart(run_atexit: bool = True):
+def restart(run_atexit: bool = False):
     r"""
     This function restarts your python program.
     PID and arguments stay the same.

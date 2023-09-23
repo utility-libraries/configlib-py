@@ -30,7 +30,8 @@ class Configurator:
         self._fp = None
         self._config = None
         self._watcher = None
-        self._restart_on_change = restart_on_change
+        self.restart_on_change = restart_on_change
+        self.run_atexit = False
 
     @property
     def name(self) -> str:
@@ -53,14 +54,6 @@ class Configurator:
         if self._config is None:
             raise AttributeError(f"load() wasn't called yet")
         return self._config
-
-    @property
-    def restart_on_change(self) -> bool:
-        return self._restart_on_change
-
-    @restart_on_change.setter
-    def restart_on_change(self, value: bool):
-        self._restart_on_change = value
 
     def find_and_load(self) -> 'Configurator':
         r"""
@@ -104,18 +97,19 @@ class Configurator:
         install_config(self._config)
         return self
 
-    def make_restart_on_change(self) -> 'Configurator':
+    def make_restart_on_change(self, *, run_atexit: bool = False) -> 'Configurator':
         r"""
         restart the program on config-file changes
         """
         self.restart_on_change = True
+        self.run_atexit = run_atexit
         self.watch()
         return self
 
     def _handle_change(self):
         from .restarter import restart
         if self.restart_on_change:
-            restart(run_atexit=True)
+            restart(run_atexit=self.run_atexit)
 
     def watch(self) -> 'Configurator':
         r"""

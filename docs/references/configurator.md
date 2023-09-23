@@ -21,6 +21,7 @@ class Configurator:
     file: Optional[str]
     config: Any
     restart_on_change: bool:
+    run_atexit: bool
 
     def find_and_load(self) -> Self:
         r"""
@@ -48,7 +49,7 @@ class Configurator:
         """
         ...
 
-    def make_restart_on_change(self) -> Self:
+    def make_restart_on_change(self, *, run_atexit: bool) -> Self:
         r"""
         restart the program on config-file changes
         """

@@ -97,12 +97,13 @@ class Configurator:
         install_config(self._config)
         return self
 
-    def make_restart_on_change(self, *, run_atexit: bool = False) -> 'Configurator':
+    def make_restart_on_change(self, *, run_atexit: bool = None) -> 'Configurator':
         r"""
         restart the program on config-file changes
         """
         self.restart_on_change = True
-        self.run_atexit = run_atexit
+        if run_atexit is not None:
+            self.run_atexit = run_atexit
         self.watch()
         return self
 

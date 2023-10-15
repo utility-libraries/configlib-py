@@ -30,7 +30,7 @@ def find(name: str, *, places: T_PLACES = None, namespace: str = None, ns_only: 
         if callable(place):
             place = place()
 
-        if places is None:
+        if place is None:
             continue
 
         if not p.isdir(place):

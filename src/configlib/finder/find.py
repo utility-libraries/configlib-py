@@ -49,5 +49,5 @@ def find(name: str, *, places: T_PLACES = None, namespace: str = None, ns_only: 
                 return fp
 
     # Error Message
-    cfg = f"{namespace}/{name}" if ns_only else f"{name} or {namespace}/{name}"
+    cfg = f"{namespace}/{name}" if ns_only else f"{name} or {namespace}/{name}" if namespace else f"{name}"
     raise ConfigNotFoundError(f"{cfg} nowhere found")

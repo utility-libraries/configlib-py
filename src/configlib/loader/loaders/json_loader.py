@@ -6,7 +6,7 @@ r"""
 import os
 import json
 import typing as t
-from ..loader import register_loader
+from configlib.loader import register_loader
 
 
 ReturnType: t.TypeAlias = t.Union[t.Dict[str, t.Any], t.List[t.Any]]

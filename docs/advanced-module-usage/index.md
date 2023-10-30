@@ -29,7 +29,8 @@ location = find(
 ## Completely manually loading of files
 
 ```python
-from configlib.loaders import load_conf
+from configlib.loader.loaders import load_conf
+
 
 config = load_conf("app.conf")
 ```

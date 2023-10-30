@@ -7,7 +7,7 @@ import os
 import re
 import json
 import typing as t
-from ..loader import register_loader
+from configlib.loader import register_loader
 from .json_loader import ReturnType
 
 

@@ -6,7 +6,7 @@ r"""
 import os
 import typing as t
 import configparser
-from ..loader import register_loader
+from configlib.loader import register_loader
 
 
 ReturnType: t.TypeAlias = configparser.ConfigParser
@@ -15,13 +15,13 @@ ReturnType: t.TypeAlias = configparser.ConfigParser
 @register_loader('ini', 'conf', 'config')
 def load_conf(fp: t.Union[str, os.PathLike]) -> ReturnType:
     r"""
-    ; last modified 1 April 2001 by John Doe
+    # last modified 1 April 2001 by John Doe
     [owner]
     name = John Doe
     organization = Acme Widgets Inc.
 
     [database]
-    ; use IP address in case network name resolution is not working
+    # use IP address in case network name resolution is not working
     server = 192.0.2.62
     port = 143
     file = "payroll.dat"

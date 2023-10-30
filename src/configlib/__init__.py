@@ -34,11 +34,10 @@ __status__ = "Prototype"  # Prototype, Development, Production
 __description__ = "utility library to find and load configuration files"
 from .__version__ import __version__, __version_info__
 
-
 from .finder import find
-from .loader import autoload, get_supported_extensions, get_supported_loaders
-from . import loaders
+from .loader import autoload, get_supported_extensions, get_supported_loaders, loaders
 from .configurator import Configurator
+from .interface import ConfigInterface
 
 
 def find_and_load(name: str, namespace: str = None, ns_only: bool = None):

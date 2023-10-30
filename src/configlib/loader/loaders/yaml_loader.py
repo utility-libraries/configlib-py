@@ -5,8 +5,8 @@ r"""
 """
 import os
 import typing as t
-from ..exceptions import NotSupportedError
-from ..loader import register_loader
+from configlib.exceptions import NotSupportedError
+from configlib.loader import register_loader
 try:
     import yaml
 except ModuleNotFoundError:

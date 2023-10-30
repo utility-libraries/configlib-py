@@ -3,7 +3,7 @@
 r"""
 
 """
-from ..exceptions import NotSupportedError
+from configlib.exceptions import NotSupportedError
 from .conf_loader import load_conf, ReturnType as ConfReturnType
 from .xml_loader import load_xml, ReturnType as XmlReturnType
 from .json_loader import load_json, ReturnType as JsonReturnType

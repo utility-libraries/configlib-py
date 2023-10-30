@@ -42,9 +42,11 @@ config = autoload("./app.conf")
 ## Type-Hints
 
 Either you import the types from `configlib.loaders`
+
 ```python
 from configlib import find_and_load
-from configlib.loaders import ConfReturnType
+from configlib.loader.loaders import ConfReturnType
+
 
 config: ConfReturnType = find_and_load("app.conf")
 ```
@@ -52,7 +54,8 @@ config: ConfReturnType = find_and_load("app.conf")
 or you use the correct loader
 
 ```python
-from configlib.loaders import load_conf
+from configlib.loader.loaders import load_conf
+
 
 config = load_conf("app.conf")
 ```

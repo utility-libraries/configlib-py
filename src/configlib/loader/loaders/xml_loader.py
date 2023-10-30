@@ -7,7 +7,7 @@ import os
 import typing as t
 import xml.etree.ElementTree
 import xml.dom.minidom
-from ..loader import register_loader
+from configlib.loader import register_loader
 
 
 ReturnType: t.TypeAlias = xml.dom.minidom.Element

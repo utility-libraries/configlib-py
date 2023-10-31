@@ -64,19 +64,27 @@ class Interface:
 
     def getstr(self, *keys: INDEX, fallback: t.Any = MISSING) -> str:
         r"""Ensures the returned type is str"""
-        return self.get(*keys, converter=Convert.to_str, fallback=fallback)
+        return self.get(*keys, fallback=fallback, converter=Convert.to_str)
 
     def getint(self, *keys: INDEX, fallback: t.Any = MISSING) -> int:
         r"""Ensures the returned type is int"""
-        return self.get(*keys, converter=Convert.to_int, fallback=fallback)
+        return self.get(*keys, fallback=fallback, converter=Convert.to_int)
 
     def getfloat(self, *keys: INDEX, fallback: t.Any = MISSING) -> float:
         r"""Ensures the returned type is float"""
-        return self.get(*keys, converter=Convert.to_float, fallback=fallback)
+        return self.get(*keys, fallback=fallback, converter=Convert.to_float)
 
     def getboolean(self, *keys: INDEX, fallback: t.Any = MISSING) -> bool:
         r"""Ensures the returned type is bool"""
-        return self.get(*keys, converter=Convert.to_bool, fallback=fallback)
+        return self.get(*keys, fallback=fallback, converter=Convert.to_bool)
+
+    def getsplit(self, *keys: INDEX, fallback: t.Any = MISSING) -> t.List[str]:
+        r"""split (and trim) by , or ;"""
+        return self.get(*keys, fallback=fallback, converter=Convert.split)
+
+    def getpaths(self, *keys: INDEX, fallback: t.Any = MISSING) -> t.List[str]:
+        r"""split by os.path.pathsep"""
+        return self.get(*keys, fallback=fallback, converter=Convert.split_paths)
 
     # ---------------------------------------------------------------------------------------------------------------- #
 

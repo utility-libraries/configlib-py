@@ -33,6 +33,31 @@ class Convert:
 
     @staticmethod
     def to_bool(value: t.Any):
-        if isinstance(value, str):
+        if isinstance(value, bool):
+            return value
+        elif isinstance(value, str):
             return Convert.BOOLEAN_STATES[value]
-        return bool(value)
+        elif value in {0, 1}:
+            return bool(value)
+        else:
+            raise ValueError(f"can't safely ensure bool for {value!r} of type {type(value).__name__}")
+
+    @staticmethod
+    def split(value: t.Any):
+        if isinstance(value, (tuple, list)):
+            return list(map(str, value))
+        elif isinstance(value, str):
+            import re
+            return re.split(r'\s*[,;]\s*', value)
+        else:
+            raise TypeError(f"can't split value of type {type(value).__name__}")
+
+    @staticmethod
+    def split_paths(value: t.Any):
+        if isinstance(value, (tuple, list)):
+            return list(map(str, value))
+        elif isinstance(value, str):
+            import os.path as p
+            return value.split(p.pathsep)
+        else:
+            raise TypeError(f"can't path-split value of type {type(value).__name__}")

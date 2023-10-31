@@ -36,6 +36,7 @@ setuptools.setup(
     project_urls={
         "Author Github": "https://github.com/PlayerG9",
         "Homepage": "https://github.com/PlayerG9/configlib-py/",
+        "Documentation": "https://utility-libraries.github.io/configlib-py/",
         "Bug Tracker": "https://github.com/PlayerG9/configlib-py/issues",
     },
     classifiers=[

@@ -8,6 +8,7 @@ import typing as t
 from configlib.exceptions import NotSupportedError
 from configlib.loader import register_loader
 try:
+    # noinspection PyCompatibility
     import tomllib  # python 3.11+
 except ModuleNotFoundError:
     try:

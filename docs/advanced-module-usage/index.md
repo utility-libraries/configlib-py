@@ -14,11 +14,12 @@ nav_order: 3
 ```python
 from configlib.finder import find, places
 
+
 location = find(
     name="app.conf",
     places=[
         places.local,
-        places.user,
+        places.user_conf,
         places.etc,
     ]
 )

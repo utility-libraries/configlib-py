@@ -78,13 +78,16 @@ server.bind((HOST, PORT))
 import configlib
 config = configlib.autoload("./app.conf")
 ```
+
 ```python
 from configlib.finder import find, places
+
+
 config_file = find(
-  name="app.conf",  # name of config-file is 'app.conf'
-  places=[places.local, places.user],  # search in main.py folder and ~/.config/
-  namespace="myproject",
-  ns_only=True,  # only search for 'myproject/app.conf' in places
+    name="app.conf",  # name of config-file is 'app.conf'
+    places=[places.local, places.user_conf],  # search in main.py folder and ~/.config/
+    namespace="myproject",
+    ns_only=True,  # only search for 'myproject/app.conf' in places
 )
 ```
 

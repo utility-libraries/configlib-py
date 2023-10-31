@@ -14,6 +14,13 @@ def fsroot():
     return p.abspath(p.sep)
 
 
+def cwd():
+    r"""
+    current working directory
+    """
+    return p.abspath(os.getcwd())
+
+
 def local():
     r"""
     root-directory of the python script currently executed
@@ -44,7 +51,7 @@ def repository():
     return directory
 
 
-def user():
+def user_conf():
     r"""
     the .config directory in the home-directory of the current user
     ~/.config/

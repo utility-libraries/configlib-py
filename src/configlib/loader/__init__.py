@@ -6,6 +6,7 @@ r"""
 import os
 import typing as t
 from ..exceptions import NotSupportedError
+from ..interface import ConfigInterface
 from .registry import REGISTRY, register_loader
 from .environ import load_env
 from . import loaders
@@ -35,7 +36,7 @@ def get_supported_loaders() -> t.Iterable[str]:
     )
 
 
-def autoload(fp: t.Union[str, os.PathLike]):
+def autoload(fp: t.Union[str, os.PathLike]) -> ConfigInterface:
     r"""
     find the correct loader for the passed file, parses it and returns the result
 
@@ -47,4 +48,4 @@ def autoload(fp: t.Union[str, os.PathLike]):
     if ext not in REGISTRY:
         raise NotSupportedError(f"files of type .{ext} are not supported")
     loader = REGISTRY[ext]
-    return loader(fp)
+    return ConfigInterface(loader(fp))

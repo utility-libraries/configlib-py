@@ -8,13 +8,14 @@ import typing as t
 import warnings
 
 
-T_LOADER: t.TypeAlias = t.Callable[[t.Union[str, os.PathLike]], t.Any]
+T_LOADER: t.TypeAlias = t.Callable[[t.Union[str, os.PathLike]], t.Dict]
+T = t.TypeVar('T')
 
 
 REGISTRY: t.Dict[str, T_LOADER] = {}
 
 
-def register_loader(*extensions: str):
+def register_loader(*extensions: str) -> t.Callable[[T], T]:
     r"""
     register function as loader for 1+ extensions
 
@@ -25,7 +26,7 @@ def register_loader(*extensions: str):
     if not extensions:
         raise ValueError("Please provide at least on extension")
 
-    def add_to_registry(fn: T_LOADER):
+    def add_to_registry(fn: T) -> T:
         for extension in extensions:
             ext = extension.removeprefix('.')
             if ext in REGISTRY:

@@ -11,9 +11,16 @@ utility library to find and load configuration files
   * [More about `configlib`](#more-about-configlib)
     * [Places to search for](#places-to-search-for)
   * [Usage Example](#usage-example)
+    * [Basic Usage](#basic-usage)
+    * [Loading specific file](#loading-specific-file)
+    * [Specify/Customise search locations](#specifycustomise-search-locations)
+  * [More in detail](#more-in-detail)
 <!-- TOC -->
 
 ## Installation
+
+[![PyPI - Version](https://img.shields.io/pypi/v/config-library)
+](https://pypi.org/project/config-library/)
 
 - `pip install config-library`
 - `pip install config-library[all]`
@@ -40,9 +47,9 @@ utility library to find and load configuration files
 |---------------------------|---------------------------------------------------|
 | `config-library[all]`     | adds all dependencies from the variations below   |
 | `config-library[watcher]` | adds support to watch the config-file for changes |
-| `config-library[json5]`   | support to load `.json5` files                    |
-| `config-library[toml]`    | support to load `.toml` files                     |
-| `config-library[yaml]`    | support to load `.yaml` files                     |
+| `config-library[json5]`   | adds support to load `.json5` files               |
+| `config-library[toml]`    | adds support to load `.toml` files                |
+| `config-library[yaml]`    | adds support to load `.yaml` files                |
 
 
 ## More about `configlib`
@@ -63,25 +70,32 @@ And in these folders it searches for either directly the config file or a sub-fo
 
 ## Usage Example
 
+### Basic Usage
+
 ```python
-# this way it's possible to write
-# > from config import ...
-# and it automatically restarts the python-script if app.json changes
-# IMPORTANT: see configlib.configurator.restarter:restart() before usage
-import configlib
-configlib.Configurator("app.json").find().load().install().make_restart_on_change()
-from config import HOST, PORT
-...
-server.bind((HOST, PORT))
+from configlib import find_and_load
+
+config = find_and_load("app.conf")
+# config = find_and_load("app.json")  # format could be easily exchanged
+# config = find_and_load("app.toml")  # depending on your needs and preferences
+# config = find_and_load("app.yaml")  # and it should continue to work
+
+address = config.get('database', 'address')
+# address = config.getstr('database', 'address')  # also possible to ensure it's of type str
+port = config.getint('database', 'port', fallback=5000)
 ```
+
+### Loading specific file
+
 ```python
 import configlib
 config = configlib.autoload("./app.conf")
 ```
 
+### Specify/Customise search locations
+
 ```python
 from configlib.finder import find, places
-
 
 config_file = find(
     name="app.conf",  # name of config-file is 'app.conf'
@@ -91,7 +105,7 @@ config_file = find(
 )
 ```
 
-### More in detail
+## More in detail
 
 ```python
 import configlib

@@ -16,9 +16,10 @@ class Interface:
     r"""
     interface to a deep object
     """
+    _obj: t.Dict[str, t.Any]
 
-    def __init__(self, obj: t.Dict[str, t.Any]):
-        self._obj = obj
+    def __init__(self, obj: t.Dict[str, t.Any] = None):
+        self._obj = obj or {}
 
     # ---------------------------------------------------------------------------------------------------------------- #
 

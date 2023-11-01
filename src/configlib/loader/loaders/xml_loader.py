@@ -4,17 +4,14 @@ r"""
 
 """
 import os
+import textwrap
 import typing as t
-import xml.etree.ElementTree
-import xml.dom.minidom
+from xml.etree import ElementTree
 from configlib.loader import register_loader
 
 
-ReturnType: t.TypeAlias = xml.dom.minidom.Element
-
-
 @register_loader('xml')
-def load_xml(fp: t.Union[str, os.PathLike]) -> ReturnType:
+def load_xml(fp: t.Union[str, os.PathLike]) -> dict:
     r"""
     <?xml version="1.0" encoding="UTF-8"?>
     <message>
@@ -24,7 +21,23 @@ def load_xml(fp: t.Union[str, os.PathLike]) -> ReturnType:
     </message>
     """
     with open(fp, 'r') as file:
-        document: xml.dom.minidom.Document = xml.dom.minidom.parse(file)
-        # document.version, document.encoding, document.standalone
-        root: xml.dom.minidom.Element = document.documentElement
-    return root
+        root = ElementTree.parse(file).getroot()
+    return {root.tag: node2dict(root)}
+
+
+def node2dict(node: ElementTree.Element) -> dict:
+    obj = {
+        f'@{attr}': value
+        for attr, value in node.attrib.items()
+    }
+    for child in node:
+        if child.tag in obj:
+            if not isinstance(obj[child.tag], list):
+                obj[child.tag] = [obj[child.tag]]
+            obj[child.tag].append(node2dict(child))
+        else:
+            obj[child.tag] = node2dict(child)
+    text = textwrap.dedent(node.text).strip()
+    if text:
+        obj['#'] = text
+    return obj

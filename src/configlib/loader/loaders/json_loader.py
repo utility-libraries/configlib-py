@@ -9,11 +9,8 @@ import typing as t
 from configlib.loader import register_loader
 
 
-ReturnType: t.TypeAlias = t.Union[t.Dict[str, t.Any], t.List[t.Any]]
-
-
 @register_loader('json')
-def load_json(fp: t.Union[str, os.PathLike]) -> ReturnType:
+def load_json(fp: t.Union[str, os.PathLike]) -> dict:
     r"""
     {
       "first_name": "John",

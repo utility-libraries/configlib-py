@@ -9,11 +9,8 @@ import configparser
 from configlib.loader import register_loader
 
 
-ReturnType: t.TypeAlias = configparser.ConfigParser
-
-
 @register_loader('ini', 'conf', 'config')
-def load_conf(fp: t.Union[str, os.PathLike]) -> ReturnType:
+def load_conf(fp: t.Union[str, os.PathLike]) -> dict:
     r"""
     # last modified 1 April 2001 by John Doe
     [owner]
@@ -35,4 +32,9 @@ def load_conf(fp: t.Union[str, os.PathLike]) -> ReturnType:
     parser.optionxform = lambda option: option.lower().replace('-', '_')  # 'Hello-World' => 'hello_world'
     with open(fp, 'r') as file:
         parser.read_file(file)
-    return parser
+    return {
+        section: {
+            option: parser.get(section, option)
+            for option in parser.options(section)
+        } for section in parser.sections()
+    }

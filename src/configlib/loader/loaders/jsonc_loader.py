@@ -8,14 +8,13 @@ import re
 import json
 import typing as t
 from configlib.loader import register_loader
-from .json_loader import ReturnType
 
 
 _REGEX = re.compile(r"(\".*?\"|\'.*?\')|(/\*.*?\*/|//[^\r\n]*$)", re.MULTILINE | re.DOTALL)
 
 
 @register_loader('jsonc')
-def load_jsonc(fp: t.Union[str, os.PathLike]) -> ReturnType:
+def load_jsonc(fp: t.Union[str, os.PathLike]) -> dict:
     r"""
     {
         /* This is an example

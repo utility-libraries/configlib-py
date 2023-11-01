@@ -7,7 +7,6 @@ import os
 import typing as t
 from configlib.exceptions import NotSupportedError
 from configlib.loader import register_loader
-from .json_loader import ReturnType
 try:
     import json5
 except ModuleNotFoundError:
@@ -15,7 +14,7 @@ except ModuleNotFoundError:
 
 
 @register_loader('json5')
-def load_json5(fp: t.Union[str, os.PathLike]) -> ReturnType:
+def load_json5(fp: t.Union[str, os.PathLike]) -> dict:
     r"""
     {
       // comments

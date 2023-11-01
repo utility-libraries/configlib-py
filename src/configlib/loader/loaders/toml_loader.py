@@ -17,11 +17,8 @@ except ModuleNotFoundError:
         raise NotSupportedError('please install config-library[toml] for this')
 
 
-ReturnType: t.TypeAlias = t.Dict[str, t.Any]
-
-
 @register_loader('toml')
-def load_toml(fp: t.Union[str, os.PathLike]) -> ReturnType:
+def load_toml(fp: t.Union[str, os.PathLike]) -> dict:
     r"""
     # This is a TOML document
 

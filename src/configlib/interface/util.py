@@ -2,6 +2,7 @@
 r"""
 
 """
+import shlex
 import typing as t
 from .typing import KEY, INDEX
 
@@ -61,3 +62,7 @@ class Convert:
             return value.split(p.pathsep)
         else:
             raise TypeError(f"can't path-split value of type {type(value).__name__}")
+
+    @staticmethod
+    def split_shlex(value: t.Any):
+        return shlex.split(str(value))

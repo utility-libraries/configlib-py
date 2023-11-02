@@ -83,6 +83,10 @@ class Interface:
         r"""split (and trim) by , or ;"""
         return self.get(*keys, fallback=fallback, converter=Convert.split)
 
+    def getshlex(self, *keys: INDEX, fallback: t.Any = MISSING) -> t.List[str]:
+        r"""split like the command line"""
+        return self.get(*keys, fallback=fallback, converter=Convert.split_shlex)
+
     def getpaths(self, *keys: INDEX, fallback: t.Any = MISSING) -> t.List[str]:
         r"""split by os.path.pathsep"""
         return self.get(*keys, fallback=fallback, converter=Convert.split_paths)

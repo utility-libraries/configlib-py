@@ -1,7 +1,7 @@
 # config-library
 utility library to find and load configuration files
 
-> see the [documentation](https://playerg9.github.io/configlib-py/) for more information
+> see the [documentation](https://utility-libraries.github.io/configlib-py/) for more information
 
 <!-- TOC -->
 * [config-library](#config-library)

@@ -13,7 +13,6 @@ class Configurator:
         :param ns_only: only search for {namespace}/{name}
         :param restart_on_change: restart the whole application if the configuration file changes
         """
-        ...
 
     name: str
     namespace: Optional[str]
@@ -27,19 +26,16 @@ class Configurator:
         r"""
         find and load the configuration file
         """
-        ...
 
     def find(self) -> Self:
         r"""
         find the configuration file
         """
-        ...
 
     def load(self) -> Self:
         r"""
         load the configuration file
         """
-        ...
 
     def install(self) -> Self:
         r"""
@@ -47,29 +43,24 @@ class Configurator:
 
         see configlib.install
         """
-        ...
 
     def make_restart_on_change(self, *, run_atexit: bool) -> Self:
         r"""
         restart the program on config-file changes
         """
-        ...
 
     def watch(self) -> Self:
         r"""
         watch for changes to the configuration file and call handlers registered with .on_change()
         """
-        ...
     
     def stop_watching(self) -> Self:
         r"""
         stop watching for changes
         """
-        ...
 
     def on_change(self, handler):
         r"""
         register handler to be called when the configuration file changes
         """
-        ...
 ```

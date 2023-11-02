@@ -14,16 +14,99 @@ Automatically finding and loading the configuration file
 from configlib import find_and_load
 
 config = find_and_load("app.conf")
-```
-or with the `Configurator` class which has additional features and can act as a common interface for all features in the library.
-```python
-from configlib import Configurator
 
-config = Configurator("app.conf").find().load().config
-# Configurator("app.conf").find_and_load()
+config.get('key', ..., fallback="default")
+```
+
+## ConfigInterface
+
+The `ConfigInterface` offers a common interface to the different kind of configuration files.
+
+### getting a value
+
+```python
+from configlib import ConfigInterface
+config = ConfigInterface()
+config["database", "address"]
+config["database":"address"]
+config.get("database", "address")
+config.getstr("database", "address")
+```
+
+#### get*
+
+every `get*()` method has the same syntax
+
+```python
+.get*(*keys)  # raises an error if not found
+.get*(*keys, fallback=default)  # fallback if not found
+```
+
+| method         | function                                                             |
+|----------------|----------------------------------------------------------------------|
+| `get()`        | returns the raw value (also has a special `converter=` parameter)    |
+| `getstr()`     | ensures it returns a string                                          |
+| `getint()`     | returns an integer                                                   |
+| `getfloat()`   | returns a floating number                                            |
+| `getboolean()` | returns the boolean value. (recognises strings like `yes` or `true`) |
+| `getsplit()`   | splits by `;` or `,` and removes outer spaces of the values          |
+| `getshlex()`   | splits like the command line                                         |
+| `getpaths()`   | splits by the system path-seperator (eg. `:`)                        |
+
+### checking for a value
+
+```python
+from configlib import ConfigInterface
+config = ConfigInterface()
+
+if ("database", "address") in config: ...
+if config.has("database", "address"): ...
+```
+
+### removing a value
+
+```python
+from configlib import ConfigInterface
+config = ConfigInterface()
+
+del config["database", "address"]
+del config["database":"address"]
+config.remove("database", "address")
+```
+
+### updating the configuration
+
+#### `.update()`
+
+```python
+from configlib import ConfigInterface
+config = ConfigInterface()
+
+print(config.get())
+# {'deep': {'something': 1}}
+config.update(deep=dict(key="value"))
+print(config.get())
+# {'deep': {'key': "value"}}
+```
+
+#### `.merge()`
+
+This merges the new configuration to the existing one
+
+```python
+from configlib import ConfigInterface
+config = ConfigInterface()
+
+print(config.get())
+# {'deep': {'something': 1}}
+config.merge(deep=dict(key="value"))
+print(config.get())
+# {'deep': {'something': 1, 'key': "value"}}
 ```
 
 ## Manually finding
+
+To manually finding a configuration file you can use the `find()` function
 
 ```python
 from configlib import find
@@ -33,32 +116,11 @@ config_file = find("app.conf")
 
 ## Manually loading
 
+To manually load a specific configuration file you can use the `load()` function.
+This recognises the correct configuration type and returns the common `ConfigInterface`
+
 ```python
 from configlib import load
 
-
 config = load("./app.conf")
 ```
-
-## Type-Hints
-
-Either you import the types from `configlib.loaders`
-
-```python
-from configlib import find_and_load
-from configlib.loader.loaders import ConfReturnType
-
-
-config: ConfReturnType = find_and_load("app.conf")
-```
-
-or you use the correct loader
-
-```python
-from configlib.loader.loaders import load_conf
-
-
-config = load_conf("app.conf")
-```
-
-or of course you use your own types

@@ -126,12 +126,12 @@ class Interface:
 
     # ---------------------------------------------------------------------------------------------------------------- #
 
-    def update(self, __other: t.Union[dict, list] = None, **kwargs):
+    def update(self, __other: dict = None, **kwargs):
         r"""update the configuration with replacing"""
         other = (__other | kwargs) if __other else kwargs
         self._obj.update(other)
 
-    def merge(self, __other: t.Union[dict, list] = None, **kwargs):
+    def merge(self, __other: dict = None, **kwargs):
         r"""update the configuration with merging"""
         other = (__other | kwargs) if __other else kwargs
 

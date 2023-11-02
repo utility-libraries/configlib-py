@@ -27,16 +27,7 @@ location = find(
 
 [more about places](../references/finder#places)
 
-## Completely manually loading of files
-
-```python
-from configlib.loader.loaders import load_conf
-
-
-config = load_conf("app.conf")
-```
-
-### Restarting the Script
+## Restarting the Script
 
 This should be used if the configuration file changes, and you want to apply these changes.
 Normally you use `Configurator.make_restart_on_change()`.

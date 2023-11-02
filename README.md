@@ -3,6 +3,8 @@ utility library to find and load configuration files
 
 > see the [documentation](https://utility-libraries.github.io/configlib-py/) for more information
 
+![configlib icon](README.assets/configlib.svg)
+
 <!-- TOC -->
 * [config-library](#config-library)
   * [Installation](#installation)

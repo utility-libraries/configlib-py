@@ -11,6 +11,8 @@ nav_order: -2
 
 utility library to find and load different kinds of configuration files.
 
+![configlib icon](assets/configlib.svg)
+
 [Getting Started](getting-started){: .btn .btn-blue .fs-5 }
 {: .d-flex .flex-justify-around }
 

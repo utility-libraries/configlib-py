@@ -34,9 +34,10 @@ config_file = find("app.conf")
 ## Manually loading
 
 ```python
-from configlib import autoload
+from configlib import load
 
-config = autoload("./app.conf")
+
+config = load("./app.conf")
 ```
 
 ## Type-Hints

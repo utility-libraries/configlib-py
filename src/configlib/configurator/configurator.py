@@ -79,10 +79,10 @@ class Configurator:
         r"""
         load the configuration file
         """
-        from ..loader import autoload
+        from ..loader import load
         if self.file is None:
             raise CallOrderError(f"load() has to be called after find()")
-        self._config = autoload(self.file)
+        self._config = load(self.file)
         return self
 
     def install(self) -> 'Configurator':

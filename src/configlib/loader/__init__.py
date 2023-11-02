@@ -13,7 +13,7 @@ from . import loaders
 
 
 __all__ = ["NotSupportedError", "REGISTRY", "register_loader",
-           "get_supported_loaders", "get_supported_extensions", "autoload"]
+           "get_supported_loaders", "get_supported_extensions", "load"]
 
 
 def get_supported_extensions() -> t.Iterable[str]:
@@ -36,7 +36,7 @@ def get_supported_loaders() -> t.Iterable[str]:
     )
 
 
-def autoload(fp: t.Union[str, os.PathLike]) -> ConfigInterface:
+def load(fp: t.Union[str, os.PathLike]) -> ConfigInterface:
     r"""
     find the correct loader for the passed file, parses it and returns the result
 

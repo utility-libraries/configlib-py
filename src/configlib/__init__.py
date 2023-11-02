@@ -35,7 +35,7 @@ __description__ = "utility library to find and load configuration files"
 from .__version__ import __version__, __version_info__
 
 from .finder import find
-from .loader import autoload, get_supported_extensions, get_supported_loaders, loaders
+from .loader import load, get_supported_extensions, get_supported_loaders, loaders
 from .configurator import Configurator
 from .interface import ConfigInterface
 
@@ -46,4 +46,4 @@ def find_and_load(name: str, namespace: str = None, ns_only: bool = None) -> Con
         namespace=namespace,
         ns_only=ns_only if ns_only is not None else (namespace is not None),
     )
-    return autoload(fp)
+    return load(fp)

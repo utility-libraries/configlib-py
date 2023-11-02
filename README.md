@@ -89,7 +89,9 @@ port = config.getint('database', 'port', fallback=5000)
 
 ```python
 import configlib
-config = configlib.autoload("./app.conf")
+
+
+config = configlib.load("./app.conf")
 ```
 
 ### Specify/Customise search locations

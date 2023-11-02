@@ -4,14 +4,12 @@ layout: home
 nav_order: -2
 ---
 
-# configlib-py
+# ![configlib icon](assets/configlib.svg){: style="height: 32px" } configlib-py
 
 [![PyPI - Version](https://img.shields.io/pypi/v/config-library)
 ](https://pypi.org/project/config-library/)
 
 utility library to find and load different kinds of configuration files.
-
-![configlib icon](assets/configlib.svg)
 
 [Getting Started](getting-started){: .btn .btn-blue .fs-5 }
 {: .d-flex .flex-justify-around }

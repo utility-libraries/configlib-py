@@ -4,17 +4,17 @@ description: utility library to find and load configuration files
 remote_theme: just-the-docs/just-the-docs@v0.4.2
 
 baseurl: "/configlib-py" # the subpath of your site, e.g. /blog
-#url: https://playerg9.github.io
-repository: PlayerG9/configlib-py # for github-metadata
+#url: https://utility-libraries.github.io
+repository: utility-libraries/configlib-py # for github-metadata
 
 
-#logo: "/assets/logo512.png"
-favicon_ico: "/assets/favicon.ico"
+logo: "/assets/configlib.svg"
+favicon_ico: "/assets/configlib.svg"
 
 permalink: pretty
 
 aux_links: # remove if you don't want this link to appear on your pages
-  Source: https://github.com/PlayerG9/configlib-py#readme
+  Source: https://github.com/utility-libraries/configlib-py#readme
 aux_links_new_tab: true
 
 color_scheme: dark
@@ -36,7 +36,7 @@ footer_content: "Copyright &copy; 2023 PlayerG9."
 # Footer "Edit this page on GitHub" link text
 gh_edit_link: true # show or hide edit this page link
 gh_edit_link_text: "Edit this page on GitHub"
-gh_edit_repository: "https://github.com/PlayerG9/configlib-py" # the github URL for your repo
+gh_edit_repository: "https://github.com/utility-libraries/configlib-py" # the github URL for your repo
 gh_edit_branch: "main" # the branch that your docs is served from
 gh_edit_source: docs # the source that your files originate from
 gh_edit_view_mode: "tree" # "tree" or "edit" if you want the user to jump into the editor immediately

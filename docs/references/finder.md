@@ -5,16 +5,15 @@ parent: References
 ---
 
 ```python
-def find(name: str, *, places: List[str] = None, namespace: str = None, ns_only: bool = False) -> str:
+def find(*variants: str, places: list = None) -> Path:
     r"""
-    find a config file with {name}
+    find a config file
 
-    :param name: name of the config file
+    note: if a variant ends with .ext then every supported config-type is searched for
+
+    :param variants: name of the config file
     :param places: list of directories to search in
-    :param namespace: namespace of the project
-    :param ns_only: only search for {namespace}/{name}
-    :return: filepath
-    :raise ValueError: if no namespace is provided but ns_only is set
+    :return: pathlib.Path
     :raise ConfigNotFoundError: config-file could not be found
     """
     ...
@@ -27,7 +26,7 @@ def find(name: str, *, places: List[str] = None, namespace: str = None, ns_only:
 | `places.fsroot()`       | filesystem root directory (`/` or `C:\`)             |
 | `places.local()`        | same directory as your `.py` script that is executed |
 | `places.repository()`   | parent folder of local that contains a `.git` folder |
-| `places.user()`         | `.config` directory in the users home directory      |
+| `places.user_conf()`    | `.config` directory in the users home directory      |
 | `places.home()`         | current users home directory                         |
 | `places.etc()`          | `/etc`                                               |
-| `places.localappdata()` | `~/AppData/Local/` (more precise: `%APPDATA%`)       |
+| `places.localappdata()` | `~/AppData/Local/` (more precise: `%LOCALAPPDATA%`)  |

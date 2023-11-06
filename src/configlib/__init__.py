@@ -40,10 +40,6 @@ from .configurator import Configurator
 from .interface import ConfigInterface
 
 
-def find_and_load(name: str, namespace: str = None, ns_only: bool = None) -> ConfigInterface:
-    fp = find(
-        name=name,
-        namespace=namespace,
-        ns_only=ns_only if ns_only is not None else (namespace is not None),
-    )
+def find_and_load(*variants: str, places=None) -> ConfigInterface:
+    fp = find(*variants, places=places)
     return load(fp)

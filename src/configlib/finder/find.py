@@ -3,51 +3,48 @@
 r"""
 
 """
-import os.path as p
+from pathlib import Path
 from ..exceptions import ConfigNotFoundError
+from ..loader import get_supported_extensions
 from .default_places import DEFAULT_PLACES, T_PLACES
 
 
-def find(name: str, *, places: T_PLACES = None, namespace: str = None, ns_only: bool = False) -> str:
+def find(*variants: str, places: T_PLACES = None) -> Path:
     r"""
-    find a config file with {name}
+    find a config file
 
-    :param name: name of the config file
+    note: if a variant ends with .ext then every supported config-type is searched for
+
+    :param variants: name of the config file
     :param places: list of directories to search in
-    :param namespace: namespace of the project
-    :param ns_only: only search for {namespace}/{name}
-    :return: filepath
-    :raise ValueError: if no namespace is provided but ns_only is set
+    :return: pathlib.Path
     :raise ConfigNotFoundError: config-file could not be found
     """
-    if not namespace and ns_only:
-        raise ValueError('ns_only can only be used if namespace is provided')
-
     if places is None:
         places = DEFAULT_PLACES
+
+    # Todo. Split variants by absolute or not
 
     for place in places:
         if callable(place):
             place = place()
-
         if place is None:
             continue
 
-        if not p.isdir(place):
+        place = Path(place)
+        if not place.is_dir():
             continue
 
-        # check directly for the config file
-        if not ns_only:
-            fp = p.join(place, name)
-            if p.isfile(fp):
-                return fp
-
-        if namespace:
-            # check for the config file in the namespace folder
-            fp = p.join(place, namespace, name)
-            if p.isfile(fp):
-                return fp
+        for variant in variants:
+            fp = place / variant
+            if fp.suffix == ".ext":
+                for extension in get_supported_extensions():
+                    fpx = fp.with_suffix(f".{extension}")
+                    if fpx.is_file():
+                        return fpx
+            else:
+                if fp.is_file():
+                    return fp
 
     # Error Message
-    cfg = f"{namespace}/{name}" if ns_only else f"{name} or {namespace}/{name}" if namespace else f"{name}"
-    raise ConfigNotFoundError(f"{cfg} nowhere found")
+    raise ConfigNotFoundError("no config-file could be found anywhere")

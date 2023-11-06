@@ -9,11 +9,12 @@ nav_order: 2
 
 # Basic Usage
 
-Automatically finding and loading the configuration file
-```python
-from configlib import find_and_load
+Automatically finding and loading of the configuration file
 
-config = find_and_load("app.conf")
+```python
+from configlib import find_and_load, ConfigInterface
+
+config: ConfigInterface = find_and_load("project.conf", "project/settings.conf")
 
 config.get('key', ..., fallback="default")
 ```
@@ -27,8 +28,8 @@ The `ConfigInterface` offers a common interface to the different kind of configu
 ```python
 from configlib import ConfigInterface
 config = ConfigInterface()
-config["database", "address"]
 config["database":"address"]
+config["database", "address"]
 config.get("database", "address")
 config.getstr("database", "address")
 ```
@@ -104,6 +105,17 @@ print(config.get())
 # {'deep': {'something': 1, 'key': "value"}}
 ```
 
+### getting `keys()`/`items()`/`values()`
+
+```python
+from configlib import ConfigInterface
+config = ConfigInterface()
+config.get("database").keys()
+config.get("database").items()
+config.get("database").values()
+config.get().keys()  # this is also possible
+```
+
 ## Manually finding
 
 To manually finding a configuration file you can use the `find()` function
@@ -120,7 +132,7 @@ To manually load a specific configuration file you can use the `load()` function
 This recognises the correct configuration type and returns the common `ConfigInterface`
 
 ```python
-from configlib import load
+from configlib import load, ConfigInterface
 
-config = load("./app.conf")
+config: ConfigInterface = load("./app.conf")
 ```

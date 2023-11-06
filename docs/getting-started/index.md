@@ -15,7 +15,7 @@ nav_order: 0
 pip3 install config-library
 ```
 
-<small>For the supported config-file-formats or install variants see [installation](../installation/)</small>
+<small>For the supported config-file-formats or installation variants see [installation](../installation/)</small>
 
 ## Usage
 
@@ -38,4 +38,37 @@ config = find_and_load('app.conf')
 address = config.get('database', 'address')
 # address = config.getstr('database', 'address')  # also possible to ensure it's of type str
 port = config.getint('database', 'port', fallback=5000)
+```
+
+As just said the file-format can be easily exchanged.
+The other file-formats would look something like this:
+
+`app.json`
+```json
+{
+  "database": {
+    "address": "localhost"
+  }
+}
+```
+`app.jsonc`/`app.json5`
+```jsonc
+{
+  "database": {
+    "address": "localhost",
+    //"port": 8000
+  }
+}
+```
+`app.toml`
+```toml
+[database]
+address="localhost"
+#port=8000
+```
+`app.yaml`
+```yaml
+database:
+    address: localhost
+    #port: 8000
 ```

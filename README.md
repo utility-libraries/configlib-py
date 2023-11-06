@@ -3,20 +3,21 @@ utility library to find and load configuration files
 
 > see the [documentation](https://utility-libraries.github.io/configlib-py/) for more information
 
-![configlib icon](https://github.com/utility-libraries/configlib-py/raw/main/README.assets/configlib.svg)
+<img style="height: 100px" src="https://github.com/utility-libraries/configlib-py/raw/main/README.assets/configlib.svg" alt="">
 
 <!-- TOC -->
 * [config-library](#config-library)
   * [Installation](#installation)
   * [Supported Config-Types](#supported-config-types)
   * [Install Variations](#install-variations)
-  * [More about `configlib`](#more-about-configlib)
-    * [Places to search for](#places-to-search-for)
   * [Usage Example](#usage-example)
     * [Basic Usage](#basic-usage)
     * [Loading specific file](#loading-specific-file)
     * [Specify/Customise search locations](#specifycustomise-search-locations)
   * [More in detail](#more-in-detail)
+    * [Searching](#searching)
+    * [Loading](#loading)
+    * [Accessing configuration](#accessing-configuration)
 <!-- TOC -->
 
 ## Installation
@@ -53,23 +54,6 @@ utility library to find and load configuration files
 | `config-library[toml]`    | adds support to load `.toml` files                |
 | `config-library[yaml]`    | adds support to load `.yaml` files                |
 
-
-## More about `configlib`
-
-### Places to search for
-
-```
-/path/to/your/source/code/
-/path/to/your/git-repo/
-/home/<user>/.config/
-/home/<user>/
-/etc/
-```
-
-> Note: On Windows there are respective counterparts.
-
-And in these folders it searches for either directly the config file or a sub-folder that's named like your project.
-
 ## Usage Example
 
 ### Basic Usage
@@ -92,7 +76,6 @@ port = config.getint('database', 'port', fallback=5000)
 ```python
 import configlib
 
-
 config = configlib.load("./app.conf")
 ```
 
@@ -102,19 +85,27 @@ config = configlib.load("./app.conf")
 from configlib.finder import find, places
 
 config_file = find(
-    name="app.conf",  # name of config-file is 'app.conf'
+    "project-name.conf",  # variant of the config-file to search for is 'app.conf'
+    "project-name/settings.conf",  # alternate variant name to search for
     places=[places.local, places.user_conf],  # search in main.py folder and ~/.config/
-    namespace="myproject",
-    ns_only=True,  # only search for 'myproject/app.conf' in places
 )
 ```
 
 ## More in detail
 
+For the more detailed description we will use this code example.
+
 ```python
 import configlib
-config = configlib.find_and_load('app.conf', 'project')
+config = configlib.find_and_load('project.conf', 'project/app.conf')
 ```
+
+### Searching
+
+The `configlib.finder` subpackage has a few predefined paths it attempts to search in.
+In each of these places it attempts to find one of the passed variants (`project.conf`, `project/app.conf`).
+If it can't find one it goes to the next place and repeats this process.
+
 system file-structure
 ```
 /
@@ -126,13 +117,45 @@ system file-structure
 │  ├─ .config/
 ```
 places where `config-library` searches for the config-file
-- /home/user/path/to/repo/src/code/app.conf
-- /home/user/path/to/repo/src/code/project/app.conf
-- /home/user/path/to/repo/app.conf
-- /home/user/path/to/repo/project/app.conf
-- /home/user/.config/app.conf
-- /home/user/.config/project/app.conf
-- /home/user/app.conf
-- /home/user/project/app.conf
-- /etc/app.conf
-- /etc/project/app.conf
+- `/home/user/path/to/repo/src/code/project.conf`
+- `/home/user/path/to/repo/src/code/project/app.conf`
+- `/home/user/path/to/repo/project.conf`
+- `/home/user/path/to/repo/project/app.conf`
+- `/home/user/.config/project.conf`
+- `/home/user/.config/project/app.conf`
+- `/home/user/project.conf`
+- `/home/user/project/app.conf`
+- `/etc/project.conf`
+- `/etc/project/app.conf`
+
+### Loading
+
+After the search return a filepath it is passed to the `load()` function.
+This function analyzes the file-extension and loads it with the correct loader.
+
+> The loader can be extended via the `configlib.loader.register_loader decorator`.
+> Important is that it should return native types to be compatible with the `ConfigInterface`
+> ```python
+> from configlib.loader import register_loader
+> 
+> @register_loader("env", "environ")  # support for *.env or *.environ files 
+> def custom_loader(fp) -> dict:
+>     ...
+> ```
+
+### Accessing configuration
+
+In the end you get an instance of the `ConfigInterface` with useful get-methods
+
+```python
+from configlib import ConfigInterface
+config: ConfigInterface
+config.get("database", "address", fallback="localhost")  # gets the value raw as parsed
+config.getstr("database", "address", fallback="localhost")  # gets as string
+config.getint("database", "port", fallback=5432)  # gets as integer
+config.getfloat("database", "timeout", fallback=10.0)  # gets as floating point number
+config.getboolean("database", "delayed-connect", fallback=False)  # gets as boolean
+config.getsplit("database", "tables")  # clean split by `,` or `;`
+config.getpaths("database", "client-paths", fallback=[])  # split by os.path.altsep (commonly `:`)
+config.getshlex("database", "additional-params", fallback=[])  # split like the command-line
+```

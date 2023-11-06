@@ -5,6 +5,7 @@ r"""
 """
 import sys
 import os.path as p
+from ..interface import ConfigInterface
 
 
 ModuleClass = type(sys)
@@ -17,6 +18,7 @@ def install_config(config, *, fp: str = None):
     :param fp: set __file__ attribute
     :return:
     """
+
     if 'config' in sys.modules:
         raise ValueError("'config' module already exists")
 
@@ -26,6 +28,8 @@ def install_config(config, *, fp: str = None):
     if fp:
         module.__file__ = p.abspath(fp)
 
+    if isinstance(config, ConfigInterface):
+        config = config.get()
     if isinstance(config, dict):
         for key in config:
             setattr(module, key, config[key])

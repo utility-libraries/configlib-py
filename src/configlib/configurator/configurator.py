@@ -17,16 +17,14 @@ class Configurator:
         from config import HOST
     """
 
-    def __init__(self, name: str, *, namespace: str = None, ns_only: bool = None, restart_on_change: bool = False):
+    def __init__(self, *variants: str, restart_on_change: bool = False):
         r"""
         :param name: name of the configuration file
         :param namespace: namespace of the project
         :param ns_only: only search for {namespace}/{name}
         :param restart_on_change: restart the whole application if the configuration file changes
         """
-        self._name = name
-        self._namespace = namespace
-        self._ns_only = ns_only
+        self._variants = variants
         self._fp = None
         self._config = None
         self._watcher = None
@@ -34,16 +32,8 @@ class Configurator:
         self.run_atexit = False
 
     @property
-    def name(self) -> str:
-        return self._name
-
-    @property
-    def namespace(self) -> t.Optional[str]:
-        return self._namespace
-
-    @property
-    def search_namespace_only(self) -> bool:
-        return self._ns_only if self._ns_only is not None else (self._namespace is not None)
+    def variants(self) -> t.Tuple[str, ...]:
+        return self._variants
 
     @property
     def file(self) -> t.Optional[str]:
@@ -68,11 +58,7 @@ class Configurator:
         find the configuration file
         """
         from ..finder import find
-        self._fp = find(
-            name=self.name,
-            namespace=self.namespace,
-            ns_only=self.search_namespace_only,
-        )
+        self._fp = find(*self.variants)
         return self
 
     def load(self) -> 'Configurator':

@@ -34,12 +34,33 @@ __status__ = "Prototype"  # Prototype, Development, Production
 __description__ = "utility library to find and load configuration files"
 from .__version__ import __version__, __version_info__
 
+from .exceptions import *
 from .finder import find
-from .loader import load, get_supported_extensions, get_supported_loaders, loaders
-from .configurator import Configurator
+from .loader import load, get_supported_formats, loaders
 from .interface import ConfigInterface
 
 
 def find_and_load(*variants: str, places=None) -> ConfigInterface:
+    r"""
+    common interface for the `find()` and `load()` function
+
+    basically an alias for `load(find(...))`
+
+    :param variants: same as `find()`: name-variants of the config file
+    :param places: same as `find()`: list of directories to search in
+    :return: ConfigInterface
+    """
     fp = find(*variants, places=places)
     return load(fp)
+
+
+def load_environ(prefix: str) -> ConfigInterface:
+    r"""
+    loads the environment variables into an object.
+    The object gets nested by splitting the environment keys on `__`
+
+    :param prefix: app prefix to filter the environment variables
+    :return: ConfigInterface
+    """
+    from .loader.environ import load_env
+    return ConfigInterface(load_env(prefix=prefix))

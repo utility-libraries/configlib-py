@@ -134,7 +134,7 @@ class ConfigInterface:
 
         self._obj.update(other)
 
-    def merge(self, __other: dict = None, **kwargs):
+    def merge(self, __other: t.Union['ConfigInterface', dict] = None, **kwargs):
         r"""update the configuration with merging"""
         if isinstance(__other, ConfigInterface):
             __other = __other._obj

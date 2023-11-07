@@ -130,10 +130,10 @@ places where `config-library` searches for the config-file
 
 ### Loading
 
-After the search return a filepath it is passed to the `load()` function.
+After the search returns a filepath it is passed to the `load()` function.
 This function analyzes the file-extension and loads it with the correct loader.
 
-> The loader can be extended via the `configlib.loader.register_loader decorator`.
+> The loader can be extended via the `configlib.loader.register_loader` decorator.
 > Important is that it should return native types to be compatible with the `ConfigInterface`
 > ```python
 > from configlib.loader import register_loader

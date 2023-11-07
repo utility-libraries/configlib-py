@@ -6,20 +6,20 @@ import typing as t
 from .util import KEY, INDEX, Convert, unify_key
 
 
-__all__ = ['Interface']
+__all__ = ['ConfigInterface']
 
 
 MISSING = object()
 
 
-class Interface:
+class ConfigInterface:
     r"""
     interface to a deep object
     """
     _obj: t.Dict[str, t.Any]
 
-    def __init__(self, obj: t.Dict[str, t.Any] = None):
-        self._obj = obj or {}
+    def __init__(self, obj: t.Union['ConfigInterface', t.Dict[str, t.Any]] = None):
+        self._obj = obj._obj if isinstance(obj, ConfigInterface) else (obj or {})
 
     # ---------------------------------------------------------------------------------------------------------------- #
 
@@ -126,13 +126,18 @@ class Interface:
 
     # ---------------------------------------------------------------------------------------------------------------- #
 
-    def update(self, __other: dict = None, **kwargs):
+    def update(self, __other: t.Union['ConfigInterface', dict] = None, **kwargs):
         r"""update the configuration with replacing"""
+        if isinstance(__other, ConfigInterface):
+            __other = __other._obj
         other = (__other | kwargs) if __other else kwargs
+
         self._obj.update(other)
 
     def merge(self, __other: dict = None, **kwargs):
         r"""update the configuration with merging"""
+        if isinstance(__other, ConfigInterface):
+            __other = __other._obj
         other = (__other | kwargs) if __other else kwargs
 
         def merge_dict(d: dict, o: dict):

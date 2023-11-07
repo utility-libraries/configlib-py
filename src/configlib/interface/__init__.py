@@ -2,4 +2,4 @@
 r"""
 
 """
-from .cls import Interface as ConfigInterface
+from .cls import ConfigInterface

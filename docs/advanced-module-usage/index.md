@@ -26,6 +26,32 @@ location = find(
 
 [more about places](../references/finder#places)
 
+## Updating the configuration with environment variables
+
+Take the following example:
+
+`app.conf`
+```ini
+[database]
+address=localhost
+port=5432
+```
+
+`environment`
+```bash
+APP_DATABASE__PORT=8000
+```
+
+```python
+from configlib import find_and_load, load_environ, ConfigInterface
+
+config: ConfigInterface = find_and_load("app.conf")
+config.merge(load_environ("APP"))
+# config.update(load_environ("APP"))  # (wrong) don't mix up update and merge
+
+print(config.get("database", "port"))  # 5432
+```
+
 ## Restarting the Script
 
 This should be used if the configuration file changes, and you want to apply these changes.

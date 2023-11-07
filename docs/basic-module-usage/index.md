@@ -19,6 +19,26 @@ config: ConfigInterface = find_and_load("project.conf", "project/settings.conf")
 config.get('key', ..., fallback="default")
 ```
 
+## Environment variables
+
+It's also possible to load the environment variables.
+
+```bash
+SHELL=/bin/bash  # not taken as it hasn't the `APP` prefix
+HOME=/home/user  # not taken as it hasn't the `APP` prefix
+APP_DATABASE=mysql  # this gets overriden by `APP_DATABASE__PORT`
+APP_DATABASE_PORT=1234  # this is a single key
+APP_DATABASE__PORT=5678  # this gets split to a deep object
+```
+```python
+from configlib import load_environ, ConfigInterface
+
+config: ConfigInterface = load_environ("APP")
+print(config.get())  # {'database_port': "1234", 'database': {'port': 5678}}
+print(config.get("database_port"))  # 1234
+print(config.get("database", "port"))  # 5678
+```
+
 ## ConfigInterface
 
 The `ConfigInterface` offers a common interface to the different kind of configuration files.

@@ -63,16 +63,18 @@ every `get*()` method has the same syntax
 .get*(*keys, fallback=default)  # fallback if not found
 ```
 
-| method         | function                                                             |
-|----------------|----------------------------------------------------------------------|
-| `get()`        | returns the raw value (also has a special `converter=` parameter)    |
-| `getstr()`     | ensures it returns a string                                          |
-| `getint()`     | returns an integer                                                   |
-| `getfloat()`   | returns a floating number                                            |
-| `getboolean()` | returns the boolean value. (recognises strings like `yes` or `true`) |
-| `getsplit()`   | splits by `;` or `,` and removes outer spaces of the values          |
-| `getshlex()`   | splits like the command line                                         |
-| `getpaths()`   | splits by the system path-seperator (eg. `:`)                        |
+| method           | function                                                             |
+|------------------|----------------------------------------------------------------------|
+| `get()`          | returns the raw value (also has a special `converter=` parameter)    |
+| `getstr()`       | ensures it returns a string                                          |
+| `getint()`       | returns an integer                                                   |
+| `getfloat()`     | returns a floating number                                            |
+| `getboolean()`   | returns the boolean value. (recognises strings like `yes` or `true`) |
+| `getsplit()`     | splits by `;` or `,` and removes outer spaces of the values          |
+| `getshlex()`     | splits like the command line                                         |
+| `getpaths()`     | splits by the system path-seperator (eg. `:`)                        |
+| `getinterface()` | returns a new ConfigInterface of given option                        |
+| `gettype()`      | gets the class of given configuration-option                         |
 
 ### checking for a value
 

@@ -15,6 +15,9 @@ MISSING = object()
 class ConfigInterface:
     r"""
     interface to a deep object
+
+    todo: allow key-variants
+    config.get('web', ['host', 'bind])
     """
     _obj: t.Dict[str, t.Any]
 
@@ -54,10 +57,8 @@ class ConfigInterface:
     def get(self, *keys: INDEX, fallback: t.Any = MISSING, converter: t.Callable[[t.Any], t.Any] = None):
         r"""get the configuration value"""
         try:
-            if converter is not None:
-                return converter(self[keys])
-            else:
-                return self[keys]
+            value = self[keys]
+            return converter(value) if converter is not None else value
         except (KeyError, IndexError, TypeError) as exc:
             if fallback is not MISSING:
                 return fallback
@@ -90,6 +91,17 @@ class ConfigInterface:
     def getpaths(self, *keys: INDEX, fallback: t.Any = MISSING) -> t.List[str]:
         r"""split by os.path.pathsep"""
         return self.get(*keys, fallback=fallback, converter=Convert.split_paths)
+
+    def getinterface(self, *keys: INDEX, fallback: dict = MISSING) -> 'ConfigInterface':
+        r"""returns a new ConfigInterface of given option"""
+        val = self.get(*keys, fallback=MISSING if fallback is MISSING else fallback)
+        if not isinstance(val, dict):
+            raise TypeError(val)
+        return type(self)(val)
+
+    def gettype(self, *keys: INDEX, fallback: t.Any = MISSING) -> type:
+        r"""gets the class of given configuration-option"""
+        return type(self.get(*keys, fallback=fallback))
 
     # ---------------------------------------------------------------------------------------------------------------- #
 

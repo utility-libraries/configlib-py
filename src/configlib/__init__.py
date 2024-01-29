@@ -38,6 +38,7 @@ from .exceptions import *
 from .finder import find
 from .loader import load, get_supported_formats, loaders
 from .interface import ConfigInterface
+from . import util
 
 
 def find_and_load(*variants: str, places=None) -> ConfigInterface:

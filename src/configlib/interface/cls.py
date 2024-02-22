@@ -3,6 +3,8 @@ r"""
 
 """
 import typing as t
+if t.TYPE_CHECKING:
+    from pathlib import Path
 from .util import KEY, INDEX, Convert, unify_key
 
 
@@ -10,6 +12,7 @@ __all__ = ['ConfigInterface']
 
 
 MISSING = object()
+_T = t.TypeVar('_T')
 
 
 class ConfigInterface:
@@ -54,11 +57,14 @@ class ConfigInterface:
             obj = obj[key]
         return obj
 
-    def get(self, *keys: INDEX, fallback: t.Any = MISSING, converter: t.Callable[[t.Any], t.Any] = None):
+    def get(self, *keys: INDEX, fallback: t.Any = MISSING, converter: t.Callable[..., t.Any] = None, **kwargs):
         r"""get the configuration value"""
+        if converter is None and kwargs:
+            import warnings
+            warnings.warn(f"converter arguments without converter passed", SyntaxWarning, stacklevel=2)
         try:
             value = self[keys]
-            return converter(value) if converter is not None else value
+            return converter(value, **kwargs) if converter is not None else value
         except (KeyError, IndexError, TypeError) as exc:
             if fallback is not MISSING:
                 return fallback
@@ -76,21 +82,44 @@ class ConfigInterface:
         r"""Ensures the returned type is float"""
         return self.get(*keys, fallback=fallback, converter=Convert.to_float)
 
-    def getboolean(self, *keys: INDEX, fallback: t.Any = MISSING) -> bool:
+    def getbool(self, *keys: INDEX, fallback: t.Any = MISSING) -> bool:
         r"""Ensures the returned type is bool"""
         return self.get(*keys, fallback=fallback, converter=Convert.to_bool)
 
-    def getsplit(self, *keys: INDEX, fallback: t.Any = MISSING) -> t.List[str]:
+    def getboolean(self, *args, **kwargs) -> bool:
+        r"""Ensures the returned type is bool"""
+        import warnings
+        warnings.warn("getboolean is deprecated. Use .getbool() instead", DeprecationWarning, stacklevel=2)
+        return self.getbool(*args, **kwargs)
+
+    def getlist(self, *keys: INDEX, fallback: t.Any = MISSING, cast: t.Type[_T] = t.Any) -> t.List[_T]:
+        r"""Ensures the returned type is list. (you may prefer .getsplit())"""
+        return self.get(*keys, fallback=fallback, converter=Convert.to_list, cast=cast)
+
+    def gettuple(self, *keys: INDEX, fallback: t.Any = MISSING, cast: t.Type[_T] = t.Any) -> t.Tuple[_T, ...]:
+        r"""Ensures the returned type is tuple. (you may prefer `tuple(.getsplit())`)"""
+        return self.get(*keys, fallback=fallback, converter=Convert.to_tuple, cast=cast)
+
+    def getsplit(self, *keys: INDEX, fallback: t.Any = MISSING, cast: t.Type[_T] = str) -> t.List[_T]:
         r"""split (and trim) by , or ;"""
-        return self.get(*keys, fallback=fallback, converter=Convert.split)
+        return self.get(*keys, fallback=fallback, converter=Convert.split, cast=cast)
 
     def getshlex(self, *keys: INDEX, fallback: t.Any = MISSING) -> t.List[str]:
         r"""split like the command line"""
         return self.get(*keys, fallback=fallback, converter=Convert.split_shlex)
 
-    def getpaths(self, *keys: INDEX, fallback: t.Any = MISSING) -> t.List[str]:
-        r"""split by os.path.pathsep"""
-        return self.get(*keys, fallback=fallback, converter=Convert.split_paths)
+    def getpath(self, *keys: INDEX, fallback: t.Any = MISSING) -> 'Path':
+        r"""get as pathlib.Path"""
+        return self.get(*keys, fallback=fallback, converter=Convert.to_path)
+
+    @t.overload
+    def getpaths(self, *keys: INDEX, fallback: t.Any = MISSING, as_path: t.Literal[False]) -> t.List[str]: ...
+    @t.overload
+    def getpaths(self, *keys: INDEX, fallback: t.Any = MISSING, as_path: t.Literal[True]) -> t.List['Path']: ...
+
+    def getpaths(self, *keys: INDEX, fallback: t.Any = MISSING, as_path: bool = False) -> t.List[t.Union[str, 'Path']]:
+        r"""split by os.path.pathsep (returns: pathlib.Path if as_path else str)"""
+        return self.get(*keys, fallback=fallback, converter=Convert.split_paths, as_path=as_path)
 
     def getinterface(self, *keys: INDEX, fallback: dict = MISSING) -> 'ConfigInterface':
         r"""returns a new ConfigInterface of given option"""

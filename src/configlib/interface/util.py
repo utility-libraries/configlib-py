@@ -79,7 +79,7 @@ class Convert:
             raise ValueError(f"can't safely ensure Path for {value!r} of type {type(value).__name__}")
 
     @staticmethod
-    def split_paths(value: t.Any, as_path: bool = False):
+    def split_paths(value: t.Any, as_path: bool):
         from pathlib import Path
         cast = Path if as_path else str
 

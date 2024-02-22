@@ -113,11 +113,11 @@ class ConfigInterface:
         return self.get(*keys, fallback=fallback, converter=Convert.to_path)
 
     @t.overload
-    def getpaths(self, *keys: INDEX, fallback: t.Any = MISSING, as_path: t.Literal[False] = ...) -> t.List[str]: ...
+    def getpaths(self, *keys: INDEX, fallback: t.Any = MISSING, as_path: t.Literal[True] = ...) -> t.List['Path']: ...
     @t.overload
-    def getpaths(self, *keys: INDEX, fallback: t.Any = MISSING, as_path: t.Literal[True]) -> t.List['Path']: ...
+    def getpaths(self, *keys: INDEX, fallback: t.Any = MISSING, as_path: t.Literal[False]) -> t.List[str]: ...
 
-    def getpaths(self, *keys: INDEX, fallback: t.Any = MISSING, as_path: bool = False) -> t.List[t.Union[str, 'Path']]:
+    def getpaths(self, *keys: INDEX, fallback: t.Any = MISSING, as_path: bool = True) -> t.List[t.Union[str, 'Path']]:
         r"""split by os.path.pathsep (returns: pathlib.Path if as_path else str)"""
         return self.get(*keys, fallback=fallback, converter=Convert.split_paths, as_path=as_path)
 

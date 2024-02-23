@@ -154,8 +154,13 @@ config.get("database", "address", fallback="localhost")  # gets the value raw as
 config.getstr("database", "address", fallback="localhost")  # gets as string
 config.getint("database", "port", fallback=5432)  # gets as integer
 config.getfloat("database", "timeout", fallback=10.0)  # gets as floating point number
-config.getboolean("database", "delayed-connect", fallback=False)  # gets as boolean
+config.getbool("database", "delayed-connect", fallback=False)  # gets as boolean
+config.getlist("database", "tables", fallback=[], cast=str)  # gets as list
+config.gettuple("database", "tables", fallback=[], cast=str)  # gets as tuple
 config.getsplit("database", "tables")  # clean split by `,` or `;`
-config.getpaths("database", "client-paths", fallback=[])  # split by os.path.altsep (commonly `:`)
+config.getpath("database", "client-paths", fallback="./")  # returns as pathlib.Path
+config.getpaths("database", "client-paths", fallback=[], as_path=True)  # split by os.path.altsep (commonly `:`)
 config.getshlex("database", "additional-params", fallback=[])  # split like the command-line
+config.getinterface("database")  # gets a new ConfigInterface for sub-option
+config.gettype("database", "timeout")  # gets the type/class (e.g. int | float)
 ```

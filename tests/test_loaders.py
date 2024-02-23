@@ -29,7 +29,7 @@ class TestLoaders(unittest.TestCase):
         from configlib import load
 
         config = load(HERE / "test_configs" / "app.jsonc")
-        self.assertFalse(config.getboolean('true'))
+        self.assertFalse(config.getbool('true'))
         self.assertEqual(config.getint('number'), 42)
 
     def test_json5(self):
@@ -43,7 +43,7 @@ class TestLoaders(unittest.TestCase):
 
         config = load(HERE / "test_configs" / "app.toml")
         self.assertEqual(config.getstr('title'), "TOML Example")
-        self.assertTrue(config.getboolean('database', 'enabled'))
+        self.assertTrue(config.getbool('database', 'enabled'))
 
     def test_xml(self):
         from configlib import load

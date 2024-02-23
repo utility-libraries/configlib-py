@@ -36,6 +36,7 @@ from .__version__ import __version__, __version_info__
 
 from .exceptions import *
 from .finder import find
+from .finder import places
 from .loader import load, get_supported_formats, loaders
 from .interface import ConfigInterface
 from . import util

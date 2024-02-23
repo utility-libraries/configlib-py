@@ -69,10 +69,13 @@ every `get*()` method has the same syntax
 | `getstr()`       | ensures it returns a string                                          |
 | `getint()`       | returns an integer                                                   |
 | `getfloat()`     | returns a floating number                                            |
-| `getboolean()`   | returns the boolean value. (recognises strings like `yes` or `true`) |
+| `getbool()`      | returns the boolean value. (recognises strings like `yes` or `true`) |
+| `getlist()`      | gets as list                                                         |
+| `gettuple()`     | gets as tuple                                                        |
 | `getsplit()`     | splits by `;` or `,` and removes outer spaces of the values          |
-| `getshlex()`     | splits like the command line                                         |
+| `getpath()`      | returns as pathlib.Path                                              |
 | `getpaths()`     | splits by the system path-seperator (eg. `:`)                        |
+| `getshlex()`     | splits like the command line                                         |
 | `getinterface()` | returns a new ConfigInterface of given option                        |
 | `gettype()`      | gets the class of given configuration-option                         |
 

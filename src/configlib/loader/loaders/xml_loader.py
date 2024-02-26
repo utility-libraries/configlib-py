@@ -26,7 +26,7 @@ def load_xml(fp: t.Union[str, os.PathLike]) -> dict:
 
 
 def node2dict(node: ElementTree.Element) -> dict:
-    obj = {
+    obj: t.Dict[str, t.Union[str, t.Dict, t.List[t.Union[str, t.List, t.Dict]]]] = {
         f'@{attr}': value
         for attr, value in node.attrib.items()
     }

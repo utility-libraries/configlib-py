@@ -27,6 +27,8 @@ def install_config(config, *, fp: str = None):
 
     if fp:
         module.__file__ = p.abspath(fp)
+    else:
+        module.__file__ = "__dynamic__"
 
     if isinstance(config, ConfigInterface):
         config = config.get()

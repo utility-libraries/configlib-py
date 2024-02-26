@@ -34,6 +34,7 @@ config = find_and_load('app.conf')
 # config = find_and_load("app.json")  # format could be easily exchanged
 # config = find_and_load("app.toml")  # depending on your needs and preferences
 # config = find_and_load("app.yaml")  # and it should continue to work
+# config = find_and_load("app.{yml,yaml}")  # (you can also specify multiple)
 
 address = config.get('database', 'address')
 # address = config.getstr('database', 'address')  # also possible to ensure it's of type str

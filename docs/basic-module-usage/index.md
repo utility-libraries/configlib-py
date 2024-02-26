@@ -15,8 +15,11 @@ Automatically finding and loading of the configuration file
 from configlib import find_and_load, ConfigInterface
 
 config: ConfigInterface = find_and_load("project.conf", "project/settings.conf")
+# config: ConfigInterface = find_and_load("project.{yml,yaml}")
+
 
 config.get('key', ..., fallback="default")
+config.get*('key', ..., fallback="default")
 ```
 
 ## Environment variables

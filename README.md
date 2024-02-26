@@ -65,6 +65,7 @@ config = find_and_load("app.conf")
 # config = find_and_load("app.json")  # format could be easily exchanged
 # config = find_and_load("app.toml")  # depending on your needs and preferences
 # config = find_and_load("app.yaml")  # and it should continue to work
+# config = find_and_load("app.{yml,yaml}")  # (you can also specify multiple)
 
 address = config.get('database', 'address')
 # address = config.getstr('database', 'address')  # also possible to ensure it's of type str
@@ -77,6 +78,14 @@ port = config.getint('database', 'port', fallback=5000)
 import configlib
 
 config = configlib.load("./app.conf")
+```
+
+### Loading from environment
+
+```python
+import configlib
+
+config = configlib.load_environ("APP")
 ```
 
 ### Specify/Customise search locations
@@ -117,15 +126,15 @@ system file-structure
 │  ├─ .config/
 ```
 places where `config-library` searches for the config-file
-- `/home/user/path/to/repo/src/code/project.conf`
+- `/home/user/path/to/repo/src/code/project.conf` (next to the started script)
 - `/home/user/path/to/repo/src/code/project/app.conf`
-- `/home/user/path/to/repo/project.conf`
+- `/home/user/path/to/repo/project.conf`  (next to .git/)
 - `/home/user/path/to/repo/project/app.conf`
-- `/home/user/.config/project.conf`
+- `/home/user/.config/project.conf`  (~/.config/)
 - `/home/user/.config/project/app.conf`
-- `/home/user/project.conf`
+- `/home/user/project.conf`  (~/)
 - `/home/user/project/app.conf`
-- `/etc/project.conf`
+- `/etc/project.conf`  (/etc/)
 - `/etc/project/app.conf`
 
 ### Loading

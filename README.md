@@ -13,6 +13,7 @@ utility library to find and load configuration files
   * [Usage Example](#usage-example)
     * [Basic Usage](#basic-usage)
     * [Loading specific file](#loading-specific-file)
+    * [Loading from environment](#loading-from-environment)
     * [Specify/Customise search locations](#specifycustomise-search-locations)
   * [More in detail](#more-in-detail)
     * [Searching](#searching)

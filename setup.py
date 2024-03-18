@@ -32,12 +32,12 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     author=__author__,
     license=__license__,
-    url="https://github.com/PlayerG9/configlib-py",
+    url="https://github.com/utility-libraries/configlib-py",
     project_urls={
-        "Author Github": "https://github.com/PlayerG9",
-        "Homepage": "https://github.com/PlayerG9/configlib-py/",
+        "Organisation Github": "https://github.com/utility-libraries",
+        "Homepage": "https://github.com/utility-libraries/configlib-py/",
         "Documentation": "https://utility-libraries.github.io/configlib-py/",
-        "Bug Tracker": "https://github.com/PlayerG9/configlib-py/issues",
+        "Bug Tracker": "https://github.com/utility-libraries/configlib-py/issues",
     },
     classifiers=[
         "Intended Audience :: Developers",

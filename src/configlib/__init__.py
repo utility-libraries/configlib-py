@@ -25,14 +25,15 @@ SOFTWARE.
 """
 
 __author__ = "PlayerG9"
-__copyright__ = "Copyright 2023, PlayerG9"
+__copyright__ = "Copyright 2024, utility-libraries"
 __credits__ = ["PlayerG9"]
 __license__ = "MIT"
 __maintainer__ = "PlayerG9"
 __email__ = None
 __status__ = "Prototype"  # Prototype, Development, Production
 __description__ = "utility library to find and load configuration files"
-from .__version__ import __version__, __version_info__
+__version_info__ = (0, 13, 0)
+__version__ = '.'.join(str(_) for _ in __version_info__)
 
 from .exceptions import *
 from .finder import find

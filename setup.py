@@ -13,14 +13,12 @@ install_requires = []
 yaml_requires = ["pyyaml"]
 toml_requires = ["toml;python_version<'3.11'"]
 json5_requires = ["json-five"]
-watcher_requires = ["watchdog"]
-all_requires = [yaml_requires, toml_requires, json5_requires, watcher_requires]
+all_requires = [yaml_requires, toml_requires, json5_requires]
 
 extras_require = {
     'yaml': yaml_requires,
     'toml': toml_requires,
     'json5': json5_requires,
-    'watcher': watcher_requires,
     'all': all_requires,
 }
 

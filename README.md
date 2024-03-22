@@ -8,17 +8,18 @@ utility library to find and load configuration files
 <!-- TOC -->
 * [config-library](#config-library)
   * [Installation](#installation)
-  * [Supported Config-Types](#supported-config-types)
   * [Install Variations](#install-variations)
+  * [Supported Config-Types](#supported-config-types)
   * [Usage Example](#usage-example)
-    * [Basic Usage](#basic-usage)
+    * [Basic usage](#basic-usage)
+    * [Config distribution](#config-distribution)
     * [Loading specific file](#loading-specific-file)
-    * [Loading from environment](#loading-from-environment)
+    * [Loading from environment variables](#loading-from-environment-variables)
     * [Specify/Customise search locations](#specifycustomise-search-locations)
+    * [Accessing configuration](#accessing-configuration)
   * [More in detail](#more-in-detail)
     * [Searching](#searching)
     * [Loading](#loading)
-    * [Accessing configuration](#accessing-configuration)
 <!-- TOC -->
 
 ## Installation
@@ -28,36 +29,34 @@ utility library to find and load configuration files
 
 - `pip install config-library`
 - `pip install config-library[all]`
-- `pip install config-library[watcher]`
 - `pip install config-library[json5]`
 - `pip install config-library[toml]`
 - `pip install config-library[yaml]`
-
-## Supported Config-Types
-
-| extension                | requires                              | link (for more information)                                                           |
-|--------------------------|---------------------------------------|---------------------------------------------------------------------------------------|
-| `.ini`/`.conf`/`.config` |                                       | <https://en.wikipedia.org/wiki/INI_file>                                              |
-| `.json`                  |                                       | <https://en.wikipedia.org/wiki/JSON>                                                  |
-| `.jsonc`                 |                                       | <https://changelog.com/news/jsonc-is-a-superset-of-json-which-supports-comments-6LwR> |
-| `.json5`                 | `config-library[json5]`               | <https://json5.org/>                                                                  |
-| `.toml`                  | `config-library[toml]` or python3.11+ | <https://toml.io/>                                                                    |
-| `.yaml`/`.yml`           | `config-library[yaml]`                | <https://en.wikipedia.org/wiki/YAML>                                                  |
-| `.xml`                   |                                       | <https://en.wikipedia.org/wiki/XML>                                                   |
 
 ## Install Variations
 
 | variation                 | information                                       |
 |---------------------------|---------------------------------------------------|
 | `config-library[all]`     | adds all dependencies from the variations below   |
-| `config-library[watcher]` | adds support to watch the config-file for changes |
 | `config-library[json5]`   | adds support to load `.json5` files               |
 | `config-library[toml]`    | adds support to load `.toml` files                |
 | `config-library[yaml]`    | adds support to load `.yaml` files                |
 
+## Supported Config-Types
+
+| extension                | requires                              | link (for more information)                                                           |
+|--------------------------|---------------------------------------|---------------------------------------------------------------------------------------|
+| `.ini`/`.conf`/`.config` | -                                     | <https://en.wikipedia.org/wiki/INI_file>                                              |
+| `.json`                  | -                                     | <https://en.wikipedia.org/wiki/JSON>                                                  |
+| `.jsonc`                 | -                                     | <https://changelog.com/news/jsonc-is-a-superset-of-json-which-supports-comments-6LwR> |
+| `.json5`                 | `config-library[json5]`               | <https://json5.org/>                                                                  |
+| `.toml`                  | `config-library[toml]` or python3.11+ | <https://toml.io/>                                                                    |
+| `.yaml`/`.yml`           | `config-library[yaml]`                | <https://en.wikipedia.org/wiki/YAML>                                                  |
+| `.xml`                   | -                                     | <https://en.wikipedia.org/wiki/XML>                                                   |
+
 ## Usage Example
 
-### Basic Usage
+### Basic usage
 
 ```python
 from configlib import find_and_load
@@ -66,11 +65,37 @@ config = find_and_load("app.conf")
 # config = find_and_load("app.json")  # format could be easily exchanged
 # config = find_and_load("app.toml")  # depending on your needs and preferences
 # config = find_and_load("app.yaml")  # and it should continue to work
-# config = find_and_load("app.{yml,yaml}")  # (you can also specify multiple)
+# config = find_and_load("app.{yml,yaml}")  # (you can also specify multiple extensions)
 
 address = config.get('database', 'address')
 # address = config.getstr('database', 'address')  # also possible to ensure it's of type str
 port = config.getint('database', 'port', fallback=5000)
+```
+
+### Config distribution
+
+configlib offers a global configuration instance.
+This can help you avoid the hassle of passing the configuration instance to different functions.
+
+`main.py`
+```python
+from configlib import config, find_and_load
+from sub import function
+
+config.update(find_and_load("config.ext"))
+
+function()
+```
+
+`sub.py`
+```python
+import logging
+from configlib import config
+
+def function():
+    if config.getbool("debug"):
+        logging.debug("Some information")
+    ...
 ```
 
 ### Loading specific file
@@ -81,11 +106,12 @@ import configlib
 config = configlib.load("./app.conf")
 ```
 
-### Loading from environment
+### Loading from environment variables
 
 ```python
 import configlib
 
+# contains every environment variable that starts with 'APP_'
 config = configlib.load_environ("APP")
 ```
 
@@ -97,8 +123,31 @@ from configlib.finder import find, places
 config_file = find(
     "project-name.conf",  # variant of the config-file to search for is 'app.conf'
     "project-name/settings.conf",  # alternate variant name to search for
+    "{project-name,variant-name}/settings.conf",  # write variants 
     places=[places.local, places.user_conf],  # search in main.py folder and ~/.config/
 )
+```
+
+### Accessing configuration
+
+In the end you get an instance of the `ConfigInterface` with useful get-methods
+
+```python
+from configlib import ConfigInterface
+config: ConfigInterface
+config.get("database", "address", fallback="localhost")  # gets the value raw as parsed
+config.getstr("database", "address", fallback="localhost")  # gets as string
+config.getint("database", "port", fallback=5432)  # gets as integer
+config.getfloat("database", "timeout", fallback=10.0)  # gets as floating point number
+config.getbool("database", "delayed-connect", fallback=False)  # gets as boolean
+config.getlist("database", "tables", fallback=[], cast=str)  # gets as list
+config.gettuple("database", "tables", fallback=[], cast=str)  # gets as tuple
+config.getsplit("database", "tables")  # clean split by `,` or `;`
+config.getpath("database", "client-paths", fallback="./")  # returns as pathlib.Path
+config.getpaths("database", "client-paths", fallback=[], as_path=True)  # split by os.path.altsep (commonly `:`)
+config.getshlex("database", "additional-params", fallback=[])  # split like the command-line
+config.getinterface("database")  # gets a new ConfigInterface for sub-option
+config.gettype("database", "timeout")  # gets the type/class (e.g. int | float)
 ```
 
 ## More in detail
@@ -152,25 +201,3 @@ This function analyzes the file-extension and loads it with the correct loader.
 > def custom_loader(fp) -> dict:
 >     ...
 > ```
-
-### Accessing configuration
-
-In the end you get an instance of the `ConfigInterface` with useful get-methods
-
-```python
-from configlib import ConfigInterface
-config: ConfigInterface
-config.get("database", "address", fallback="localhost")  # gets the value raw as parsed
-config.getstr("database", "address", fallback="localhost")  # gets as string
-config.getint("database", "port", fallback=5432)  # gets as integer
-config.getfloat("database", "timeout", fallback=10.0)  # gets as floating point number
-config.getbool("database", "delayed-connect", fallback=False)  # gets as boolean
-config.getlist("database", "tables", fallback=[], cast=str)  # gets as list
-config.gettuple("database", "tables", fallback=[], cast=str)  # gets as tuple
-config.getsplit("database", "tables")  # clean split by `,` or `;`
-config.getpath("database", "client-paths", fallback="./")  # returns as pathlib.Path
-config.getpaths("database", "client-paths", fallback=[], as_path=True)  # split by os.path.altsep (commonly `:`)
-config.getshlex("database", "additional-params", fallback=[])  # split like the command-line
-config.getinterface("database")  # gets a new ConfigInterface for sub-option
-config.gettype("database", "timeout")  # gets the type/class (e.g. int | float)
-```

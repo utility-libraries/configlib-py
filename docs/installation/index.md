@@ -18,7 +18,6 @@ pip3 install config-library
 | variation                 | information                                       |
 |---------------------------|---------------------------------------------------|
 | `config-library[all]`     | adds all dependencies from the variations below   |
-| `config-library[watcher]` | adds support to watch the config-file for changes |
 | `config-library[json5]`   | support to load `.json5` files                    |
 | `config-library[toml]`    | support to load `.toml` files                     |
 | `config-library[yaml]`    | support to load `.yaml` files                     |

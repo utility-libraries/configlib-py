@@ -22,6 +22,32 @@ config.get('key', ..., fallback="default")
 config.get*('key', ..., fallback="default")
 ```
 
+# Config distribution
+
+configlib offers a global configuration instance.
+This can help you avoid the hassle of passing the configuration instance to different functions.
+
+`main.py`
+```python
+from configlib import config, find_and_load
+from sub import function
+
+config.update(find_and_load("config.ext"))
+
+function()
+```
+
+`sub.py`
+```python
+import logging
+from configlib import config
+
+def function():
+    if config.getbool("debug"):
+        logging.debug("Some information")
+    ...
+```
+
 ## Environment variables
 
 It's also possible to load the environment variables.

@@ -42,6 +42,10 @@ from .interface import ConfigInterface
 from . import util
 
 
+# global configuration instance for easier config distribution
+config = ConfigInterface()
+
+
 def find_and_load(*variants: str, places=None) -> ConfigInterface:
     r"""
     common interface for the `find()` and `load()` function

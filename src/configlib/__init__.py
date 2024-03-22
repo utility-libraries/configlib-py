@@ -36,9 +36,8 @@ __version_info__ = (0, 13, 0)
 __version__ = '.'.join(str(_) for _ in __version_info__)
 
 from .exceptions import *
-from .finder import find
-from .finder import places
-from .loader import load, get_supported_formats, loaders
+from .finding import find, places
+from .loading import load, get_supported_formats, loaders
 from .interface import ConfigInterface
 from . import util
 
@@ -65,5 +64,5 @@ def load_environ(prefix: str) -> ConfigInterface:
     :param prefix: app prefix to filter the environment variables
     :return: ConfigInterface
     """
-    from .loader.environ import load_env
+    from .loading.environ import load_env
     return ConfigInterface(load_env(prefix=prefix))

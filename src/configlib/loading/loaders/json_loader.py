@@ -6,7 +6,7 @@ r"""
 import os
 import json
 import typing as t
-from configlib.loader import register_loader
+from ..registry import register_loader
 
 
 @register_loader('json')

@@ -7,7 +7,7 @@ import os
 import re
 import json
 import typing as t
-from configlib.loader import register_loader
+from ..registry import register_loader
 
 
 _REGEX = re.compile(r"(\".*?\"|\'.*?\')|(/\*.*?\*/|//[^\r\n]*$)", re.MULTILINE | re.DOTALL)

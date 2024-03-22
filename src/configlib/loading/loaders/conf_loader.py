@@ -6,7 +6,7 @@ r"""
 import os
 import typing as t
 import configparser
-from configlib.loader import register_loader
+from ..registry import register_loader
 
 
 @register_loader('ini', 'conf', 'config')

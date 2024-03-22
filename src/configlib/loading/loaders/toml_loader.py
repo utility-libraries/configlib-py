@@ -6,7 +6,7 @@ r"""
 import os
 import typing as t
 from configlib.exceptions import NotSupportedError
-from configlib.loader import register_loader
+from ..registry import register_loader
 try:
     # noinspection PyCompatibility
     import tomllib  # python 3.11+
@@ -44,5 +44,5 @@ def load_toml(fp: t.Union[str, os.PathLike]) -> dict:
     ip = "10.0.0.2"
     role = "backend"
     """
-    with open(fp, 'r') as file:
+    with open(fp, 'rb') as file:
         return tomllib.load(file)

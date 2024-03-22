@@ -6,7 +6,7 @@ r"""
 import os
 import typing as t
 from configlib.exceptions import NotSupportedError
-from configlib.loader import register_loader
+from ..registry import register_loader
 try:
     import json5
 except ModuleNotFoundError:

@@ -5,7 +5,7 @@ r"""
 import re
 import itertools
 import typing as t
-from ..loader import get_supported_formats
+from ..loading import get_supported_formats
 
 
 PATTERN = re.compile(r"{(.+?)}")

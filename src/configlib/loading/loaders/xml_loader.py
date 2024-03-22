@@ -7,7 +7,7 @@ import os
 import textwrap
 import typing as t
 from xml.etree import ElementTree
-from configlib.loader import register_loader
+from ..registry import register_loader
 
 
 @register_loader('xml')

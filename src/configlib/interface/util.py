@@ -23,7 +23,10 @@ class Convert:
 
     @staticmethod
     def to_str(value: t.Any):
-        return str(value)
+        if isinstance(value, (str, int, float)):
+            return str(value)
+        else:
+            raise ValueError(f"can't safely ensure str for {value!r} of type {type(value).__name__}")
 
     @staticmethod
     def to_int(value: t.Any):
@@ -67,7 +70,7 @@ class Convert:
         if isinstance(value, (tuple, list)):
             return list(map(cast, value))
         else:
-            raise TypeError(f"can't split value of type {type(value).__name__}")
+            raise ValueError(f"can't split value of type {type(value).__name__}")
 
     @staticmethod
     def to_path(value: t.Any) -> 'pathlib.Path':
@@ -90,7 +93,7 @@ class Convert:
         if isinstance(value, (tuple, list)):
             return list(map(cast, value))
         else:
-            raise TypeError(f"can't path-split value of type {type(value).__name__}")
+            raise ValueError(f"can't path-split value of type {type(value).__name__}")
 
     @staticmethod
     def split_shlex(value: t.Any):

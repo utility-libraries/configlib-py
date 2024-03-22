@@ -12,22 +12,15 @@ class ConfigLibError(Exception):
     pass
 
 
-class ConfigNotFoundError(ConfigLibError):
+class ConfigNotFoundError(ConfigLibError, FileNotFoundError):
     r"""
     A configuration file could not be found
     """
     pass
 
 
-class NotSupportedError(ConfigLibError):
+class NotSupportedError(ConfigLibError, NotImplementedError):
     r"""
     a configuration file could not be parsed
-    """
-    pass
-
-
-class CallOrderError(ConfigLibError):
-    r"""
-    another method should have been called first
     """
     pass

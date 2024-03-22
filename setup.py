@@ -11,7 +11,7 @@ from configlib import __author__, __version__, __description__, __license__
 install_requires = []
 
 yaml_requires = ["pyyaml"]
-toml_requires = ["toml"]
+toml_requires = ["toml;python_version<'3.11'"]
 json5_requires = ["json-five"]
 watcher_requires = ["watchdog"]
 all_requires = [yaml_requires, toml_requires, json5_requires, watcher_requires]

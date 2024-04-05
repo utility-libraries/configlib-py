@@ -41,34 +41,34 @@ class Convert:
         if isinstance(value, bool):
             return value
         elif isinstance(value, str):
-            return Convert.BOOLEAN_STATES[value]
+            return Convert.BOOLEAN_STATES[value.lower()]
         elif value in {0, 1}:
             return bool(value)
         else:
             raise ValueError(f"can't safely ensure bool for {value!r} of type {type(value).__name__}")
 
     @staticmethod
-    def to_list(value: t.Any, cast: t.Type = None):
+    def to_list(value: t.Any, cast: t.Callable = None):
         if isinstance(value, (list, tuple)):
             return list(value) if cast in {None, t.Any} else list(map(cast, value))
         else:
             raise ValueError(f"can't safely ensure list for {value!r} of type {type(value).__name__}")
 
     @staticmethod
-    def to_tuple(value: t.Any, cast: t.Type = None):
+    def to_tuple(value: t.Any, cast: t.Callable = None):
         if isinstance(value, (list, tuple)):
-            return list(value) if cast in {None, t.Any} else list(map(cast, value))
+            return tuple(value) if cast in {None, t.Any} else tuple(map(cast, value))
         else:
             raise ValueError(f"can't safely ensure tuple for {value!r} of type {type(value).__name__}")
 
     @staticmethod
-    def split(value: t.Any, cast: t.Type = str):
+    def split(value: t.Any, cast: t.Callable = str):
         if isinstance(value, str):
             import re
             value = re.split(r'\s*[,;]\s*', value)
 
         if isinstance(value, (tuple, list)):
-            return list(map(cast, value))
+            return list(value) if cast in {None, t.Any} else list(map(cast, value))
         else:
             raise ValueError(f"can't split value of type {type(value).__name__}")
 
@@ -96,6 +96,9 @@ class Convert:
             raise ValueError(f"can't path-split value of type {type(value).__name__}")
 
     @staticmethod
-    def split_shlex(value: t.Any):
+    def split_shlex(value: t.Any, cast: t.Callable = str):
         import shlex
-        return shlex.split(str(value))
+        if not isinstance(value, str):
+            raise ValueError(f"can't shlex-split value of type {type(value).__name__}")
+        values = shlex.split(value)
+        return list(values) if cast in {None, t.Any} else list(map(cast, values))

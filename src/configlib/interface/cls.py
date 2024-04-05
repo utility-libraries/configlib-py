@@ -92,21 +92,21 @@ class ConfigInterface:
         warnings.warn("getboolean is deprecated. Use .getbool() instead", DeprecationWarning, stacklevel=2)
         return self.getbool(*args, **kwargs)
 
-    def getlist(self, *keys: INDEX, fallback: t.Any = MISSING, cast: t.Type[_T] = t.Any) -> t.List[_T]:
+    def getlist(self, *keys: INDEX, fallback: t.Any = MISSING, cast: t.Callable[..., _T] = t.Any) -> t.List[_T]:
         r"""Ensures the returned type is list. (you may prefer .getsplit())"""
         return self.get(*keys, fallback=fallback, converter=Convert.to_list, cast=cast)
 
-    def gettuple(self, *keys: INDEX, fallback: t.Any = MISSING, cast: t.Type[_T] = t.Any) -> t.Tuple[_T, ...]:
+    def gettuple(self, *keys: INDEX, fallback: t.Any = MISSING, cast: t.Callable[..., _T] = t.Any) -> t.Tuple[_T, ...]:
         r"""Ensures the returned type is tuple. (you may prefer `tuple(.getsplit())`)"""
         return self.get(*keys, fallback=fallback, converter=Convert.to_tuple, cast=cast)
 
-    def getsplit(self, *keys: INDEX, fallback: t.Any = MISSING, cast: t.Type[_T] = str) -> t.List[_T]:
+    def getsplit(self, *keys: INDEX, fallback: t.Any = MISSING, cast: t.Callable[..., _T] = str) -> t.List[_T]:
         r"""split (and trim) by , or ;"""
         return self.get(*keys, fallback=fallback, converter=Convert.split, cast=cast)
 
-    def getshlex(self, *keys: INDEX, fallback: t.Any = MISSING) -> t.List[str]:
+    def getshlex(self, *keys: INDEX, fallback: t.Any = MISSING, cast: t.Callable[..., _T] = str) -> t.List[_T]:
         r"""split like the command line"""
-        return self.get(*keys, fallback=fallback, converter=Convert.split_shlex)
+        return self.get(*keys, fallback=fallback, converter=Convert.split_shlex, cast=cast)
 
     def getpath(self, *keys: INDEX, fallback: t.Any = MISSING) -> 'Path':
         r"""get as pathlib.Path"""

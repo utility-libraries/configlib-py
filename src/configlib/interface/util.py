@@ -4,8 +4,6 @@ r"""
 """
 import typing as t
 from .typing import KEY, INDEX
-if t.TYPE_CHECKING:
-    import pathlib
 
 
 def unify_key(key: KEY) -> t.Tuple[INDEX, ...]:
@@ -18,6 +16,10 @@ def unify_key(key: KEY) -> t.Tuple[INDEX, ...]:
 
 
 class Convert:
+    r"""
+    a collection of useful type-converters
+    """
+
     BOOLEAN_STATES = {'1': True, 'yes': True, 'true': True, 'on': True,
                       '0': False, 'no': False, 'false': False, 'off': False}
 
@@ -73,7 +75,7 @@ class Convert:
             raise ValueError(f"can't split value of type {type(value).__name__}")
 
     @staticmethod
-    def to_path(value: t.Any) -> 'pathlib.Path':
+    def to_path(value: t.Any):
         from os import PathLike
         from pathlib import Path
         if isinstance(value, (str, Path, PathLike)):

@@ -38,7 +38,7 @@ __version__ = '.'.join(str(_) for _ in __version_info__)
 from .exceptions import *
 from .finding import find, places
 from .loading import load, get_supported_formats, loaders
-from .interface import ConfigInterface
+from .interface import ConfigInterface, Convert
 from . import util
 
 

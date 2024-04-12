@@ -3,5 +3,6 @@
 r"""
 
 """
-from .find import find, DEFAULT_PLACES
+from .find import find, find_iter
+from .default_places import DEFAULT_PLACES
 from . import places

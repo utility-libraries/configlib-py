@@ -3,10 +3,14 @@
 r"""
 
 """
+import typing as t
 from pathlib import Path
 from ..exceptions import ConfigNotFoundError
 from ._variations import variations as iter_variations
 from .default_places import DEFAULT_PLACES, T_PLACES
+
+
+__all__ = ['find', 'find_iter']
 
 
 def find(*variants: str, places: T_PLACES = None) -> Path:
@@ -24,6 +28,26 @@ def find(*variants: str, places: T_PLACES = None) -> Path:
     :return: pathlib.Path
     :raise ConfigNotFoundError: config-file could not be found
     """
+    try:
+        return next(find_iter(*variants, places=places))
+    except StopIteration:
+        raise ConfigNotFoundError("no config-file could be found anywhere")
+
+
+def find_iter(*variants: str, places: T_PLACES = None) -> t.Iterator[Path]:
+    r"""
+    find all existing config files
+
+    note: if a variant ends with .ext then every supported config-type is searched for
+
+    note: you can make variations with file.{ext1,ext2}
+
+    note: absolute paths have higher priority than relative
+
+    :param variants: name-variants of the config file
+    :param places: list of directories to search in
+    :return: Iterator[pathlib.Path]
+    """
     if places is None:
         places = DEFAULT_PLACES
 
@@ -39,7 +63,7 @@ def find(*variants: str, places: T_PLACES = None) -> Path:
     # check absolutes
     for fp in absolutes:
         if fp.is_file():
-            return fp
+            yield fp
 
     # check relatives
     for place in places:
@@ -55,6 +79,7 @@ def find(*variants: str, places: T_PLACES = None) -> Path:
         for variation in relatives:
             fp = place / variation
             if fp.is_file():
-                return fp
+                yield fp
 
-    raise ConfigNotFoundError("no config-file could be found anywhere")
+    # don't fail
+    # raise ConfigNotFoundError("no config-file could be found anywhere")

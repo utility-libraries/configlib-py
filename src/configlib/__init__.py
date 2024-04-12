@@ -36,7 +36,7 @@ __version_info__ = (0, 14, 0)
 __version__ = '.'.join(str(_) for _ in __version_info__)
 
 from .exceptions import *
-from .finding import find, places
+from .finding import find, find_iter, places
 from .loading import load, get_supported_formats, loaders
 from .interface import ConfigInterface, Convert
 from . import util
@@ -58,6 +58,23 @@ def find_and_load(*variants: str, places=None) -> ConfigInterface:
     """
     fp = find(*variants, places=places)
     return load(fp)
+
+
+def find_and_load_all(*variants: str, places=None) -> ConfigInterface:
+    r"""
+    similar to find_and_load, but loads all found config files in reversed order
+    and merges them into one ConfigInterface.
+
+    e.g. `/etc/config.yml` values would be overridden by `~/.config.yml` (considering default places)
+
+    :param variants: same as `find_iter()`: name-variants of the config file
+    :param places: same as `find_iter()`: list of directories to search in
+    :return: ConfigInterface
+    """
+    conf = ConfigInterface()
+    for fp in reversed(list(find_iter(*variants, places=places))):
+        conf.merge(load(fp))
+    return conf
 
 
 def load_environ(prefix: str) -> ConfigInterface:

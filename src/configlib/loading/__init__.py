@@ -3,7 +3,7 @@
 r"""
 
 """
-import os
+import os.path
 import typing as t
 from ..exceptions import NotSupportedError
 from ..interface import ConfigInterface
@@ -31,8 +31,8 @@ def load(fp: t.Union[str, os.PathLike]) -> ConfigInterface:
     :param fp: path of the config-file
     :return: depends on the file-extension
     """
-    import os.path as p
-    ext = p.splitext(fp)[1][1:]
+    fp = os.path.abspath(os.path.expanduser(fp))  # allow '~/...'
+    ext = os.path.splitext(fp)[1][1:]
     if ext not in REGISTRY:
         raise NotSupportedError(f"files of type .{ext} are not supported")
     loader = REGISTRY[ext]

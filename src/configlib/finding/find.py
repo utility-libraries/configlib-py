@@ -27,12 +27,10 @@ def find(*variants: str, places: T_PLACES = None) -> Path:
     if places is None:
         places = DEFAULT_PLACES
 
-    variations = list(iter_variations(*variants))
-
     # split by absolute or relative
     absolutes, relatives = [], []
 
-    for variation in map(Path, variations):
+    for variation in (Path(v).expanduser() for v in iter_variations(*variants)):
         if variation.is_absolute():
             absolutes.append(variation)
         else:

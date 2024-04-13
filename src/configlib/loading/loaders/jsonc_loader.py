@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 # -*- coding=utf-8 -*-
 r"""
 https://github.com/muhammadmuzzammil1998/jsonc

@@ -29,6 +29,7 @@ utility library to find and load configuration files
 
 - `pip install config-library`
 - `pip install config-library[all]`
+- `pip install config-library[dotenv]`
 - `pip install config-library[json5]`
 - `pip install config-library[toml]`
 - `pip install config-library[yaml]`

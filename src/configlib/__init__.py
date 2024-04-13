@@ -78,6 +78,15 @@ def find_and_load_all(*variants: str, places=None) -> ConfigInterface:
 
 def load_environ(prefix: str) -> ConfigInterface:
     r"""
+    will soon be replaced by a function that updates os.environ with values from a .env file
+    """
+    import warnings
+    warnings.warn(f"deprecated function `load_environ()` use `from_environ()`", PendingDeprecationWarning, stacklevel=2)
+    return from_environ(prefix=prefix)
+
+
+def from_environ(prefix: str) -> ConfigInterface:
+    r"""
     loads the environment variables into an object.
     The object gets nested by splitting the environment keys on `__`
 

@@ -15,10 +15,10 @@ def load_env(
 ) -> t.Dict[str, t.Union[str, dict]]:
     r"""
     information for override
-    if 'HELLO' and 'HELLO__WORLD' exist, then 'HELLO' gets overriden and is not included
+    if 'HELLO' and 'HELLO__WORLD' exist, then 'HELLO' gets overwritten and is not included
 
     :param prefix: prefix to filter for (_ is automatically added to the prefix)
-    :param override: in case of a conflict in a nested object the existing gets overriden, otherwise KeyError
+    :param override: in case of a conflict in a nested object the existing gets overwritten, otherwise KeyError
     :param transform: function to transform the key (default: HELLO-WORLD -> hello_world)
     :param split: functions used to split the key to create a nested object (default: split by __)
     :return: dict

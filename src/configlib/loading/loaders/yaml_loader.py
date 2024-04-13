@@ -4,7 +4,7 @@ r"""
 """
 import os
 import typing as t
-from configlib.exceptions import NotSupportedError
+from ...exceptions import NotSupportedError
 from ..registry import register_loader
 try:
     import yaml

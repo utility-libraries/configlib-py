@@ -8,6 +8,7 @@ pyyaml = "*"
 toml = "*"
 json-five = "*"
 watchdog = "*"
+python-dotenv = "*"
 
 [dev-packages]
 build = "*"

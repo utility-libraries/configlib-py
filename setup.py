@@ -13,12 +13,14 @@ install_requires = []
 yaml_requires = ["pyyaml"]
 toml_requires = ["toml;python_version<'3.11'"]
 json5_requires = ["json-five"]
-all_requires = [yaml_requires, toml_requires, json5_requires]
+dotenv_requires = ["python-dotenv"]
+all_requires = [yaml_requires, toml_requires, json5_requires, dotenv_requires]
 
 extras_require = {
     'yaml': yaml_requires,
     'toml': toml_requires,
     'json5': json5_requires,
+    'dotenv': dotenv_requires,
     'all': all_requires,
 }
 

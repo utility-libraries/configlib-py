@@ -10,13 +10,15 @@ from configlib import __author__, __version__, __description__, __license__
 
 install_requires = []
 
+validation_requires = ["pydantic"]
 yaml_requires = ["pyyaml"]
 toml_requires = ["toml;python_version<'3.11'"]
 json5_requires = ["json-five"]
 dotenv_requires = ["python-dotenv"]
-all_requires = [yaml_requires, toml_requires, json5_requires, dotenv_requires]
+all_requires = [validation_requires, yaml_requires, toml_requires, json5_requires, dotenv_requires]
 
 extras_require = {
+    'validation': validation_requires,
     'yaml': yaml_requires,
     'toml': toml_requires,
     'json5': json5_requires,

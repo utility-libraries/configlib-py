@@ -5,7 +5,10 @@ r"""
 import typing as t
 if t.TYPE_CHECKING:
     from pathlib import Path
-from .util import KEY, INDEX, Convert, unify_key
+    from ..validation import BaseModel
+from .typing import KEY, INDEX, T_VALIDATION_ERROR
+from .util import Convert, unify_key
+from ..exceptions import *
 
 
 __all__ = ['ConfigInterface']
@@ -20,7 +23,7 @@ class ConfigInterface:
     interface to a deep object
 
     todo: allow key-variants
-    config.get('web', ['host', 'bind])
+    config.get('web', ['host', 'bind'])
     """
     _obj: t.Dict[str, t.Any]
 
@@ -41,6 +44,13 @@ class ConfigInterface:
         keys = [int(k) if k.isdecimal() else k for k in raw_keys if k]
         return self.getstr(*keys, fallback="<missing>")
 
+    def pretty(self, **kwargs) -> str:
+        r"""
+        Returns a prettified version of the configuration. Useful for debugging.
+        """
+        from pprint import pformat
+        return pformat(self._obj, **kwargs)
+
     # ---------------------------------------------------------------------------------------------------------------- #
 
     def __len__(self):
@@ -51,7 +61,7 @@ class ConfigInterface:
 
     # ---------------------------------------------------------------------------------------------------------------- #
 
-    def __getitem__(self, item: KEY):
+    def __getitem__(self, item: KEY) -> t.Any:
         obj = self._obj
         for key in unify_key(item):
             obj = obj[key]
@@ -166,6 +176,27 @@ class ConfigInterface:
         return keys in self
 
     # ---------------------------------------------------------------------------------------------------------------- #
+
+    def validate(self, model: t.Type['BaseModel'],
+                 *, noraise: bool = False, update: bool = True) -> t.Optional[t.List['T_VALIDATION_ERROR']]:
+        r"""
+        can be used to validate the configuration against a specified model
+
+        :param model: the model to validate against. (from configlib.validation)
+        :param noraise: whether to return the errors if the validation fails.
+        :param update: whether to update the configuration with parsed values
+        :return: list of error if nofail and failed
+        """
+        from pydantic import ValidationError as PydanticValidationError
+        try:
+            instance: 'BaseModel' = model(**self._obj)
+        except PydanticValidationError as error:
+            if noraise:
+                return error.errors()
+            raise ValidationError(error.errors()) from None
+        else:
+            if update:
+                self._obj = instance.model_dump(mode='python')
 
     def update(self, __other: t.Union['ConfigInterface', dict] = None, **kwargs):
         r"""update the configuration with replacing"""

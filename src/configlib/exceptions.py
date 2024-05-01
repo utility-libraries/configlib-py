@@ -23,3 +23,9 @@ class NotSupportedError(ConfigLibError, NotImplementedError):
     a configuration file could not be parsed
     """
     pass
+
+
+class ValidationError(ConfigLibError):
+    r"""
+    a configuration could not be validated
+    """

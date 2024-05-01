@@ -9,6 +9,7 @@ toml = "*"
 json-five = "*"
 watchdog = "*"
 python-dotenv = "*"
+pydantic = "*"
 
 [dev-packages]
 build = "*"

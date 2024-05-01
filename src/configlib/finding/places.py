@@ -6,6 +6,9 @@ import os
 import os.path as p
 
 
+__all__ = ['fsroot', 'cwd', 'local', 'repository', 'user_conf', 'home', 'etc', 'localappdata']
+
+
 def fsroot():
     r"""
     should return 'C:\' under Windows and '/' under good OS's

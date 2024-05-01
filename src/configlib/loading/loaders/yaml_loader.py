@@ -12,6 +12,9 @@ except ModuleNotFoundError:
     raise NotSupportedError('please install config-library[yaml] for this')
 
 
+__all__ = ['load_yaml']
+
+
 @register_loader('yaml', 'yml')
 def load_yaml(fp: t.Union[str, os.PathLike]) -> dict:
     r"""

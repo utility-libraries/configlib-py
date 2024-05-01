@@ -10,6 +10,9 @@ XMISSING = object()
 T = t.TypeVar("T")
 
 
+__all__ = ['get_any']
+
+
 def get_any(getter: t.Callable[..., T], *variants: t.Iterable[INDEX], fallback: t.Any = XMISSING) -> T:
     r"""
     config = ConfigInterface()

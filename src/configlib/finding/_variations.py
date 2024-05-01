@@ -8,6 +8,9 @@ import typing as t
 from ..loading import get_supported_formats
 
 
+__all__ = ['variations']
+
+
 PATTERN = re.compile(r"{(.+?)}")
 WILDCARD_EXT = re.compile(r"\.ext$")
 ALL_EXTENSIONS = f".{{{','.join(get_supported_formats())}}}"

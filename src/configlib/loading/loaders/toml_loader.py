@@ -16,6 +16,9 @@ except ModuleNotFoundError:
         raise NotSupportedError('please install config-library[toml] for this')
 
 
+__all__ = ['load_toml']
+
+
 @register_loader('toml')
 def load_toml(fp: t.Union[str, os.PathLike]) -> dict:
     r"""

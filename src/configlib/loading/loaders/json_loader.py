@@ -8,6 +8,9 @@ import typing as t
 from ..registry import register_loader
 
 
+__all__ = ['load_json']
+
+
 @register_loader('json')
 def load_json(fp: t.Union[str, os.PathLike]) -> dict:
     r"""

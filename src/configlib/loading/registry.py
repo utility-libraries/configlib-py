@@ -7,6 +7,9 @@ import typing as t
 import warnings
 
 
+__all__ = ['REGISTRY', 'register_loader']
+
+
 T_LOADER: t.TypeAlias = t.Callable[[t.Union[str, os.PathLike]], t.Dict]
 T = t.TypeVar('T')
 
@@ -14,7 +17,7 @@ T = t.TypeVar('T')
 REGISTRY: t.Dict[str, T_LOADER] = {}
 
 
-def register_loader(*extensions: str) -> t.Callable[[T], T]:
+def register_loader(*extensions: str, nowarn: bool = False) -> t.Callable[[T], T]:
     r"""
     register function as loader for 1+ extensions
 
@@ -28,7 +31,7 @@ def register_loader(*extensions: str) -> t.Callable[[T], T]:
     def add_to_registry(fn: T) -> T:
         for extension in extensions:
             ext = extension.removeprefix('.')
-            if ext in REGISTRY:
+            if ext in REGISTRY and not nowarn:
                 warnings.warn(f"replace loader for .{ext} files")
             REGISTRY[ext] = fn
         return fn

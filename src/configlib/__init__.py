@@ -41,11 +41,11 @@ from .interface import ConfigInterface, Convert
 from . import util
 
 
-# global configuration instance for easier config distribution
 config = ConfigInterface()
+r""" global configuration instance for easier config distribution """
 
 
-def find_and_load(*variants: str, places=None) -> ConfigInterface:
+def find_and_load(*variants: str, places=None) -> 'ConfigInterface':
     r"""
     common interface for the `find()` and `load()` function
 
@@ -59,7 +59,7 @@ def find_and_load(*variants: str, places=None) -> ConfigInterface:
     return load(fp)
 
 
-def find_and_load_all(*variants: str, places=None) -> ConfigInterface:
+def find_and_load_all(*variants: str, places=None) -> 'ConfigInterface':
     r"""
     similar to find_and_load, but loads all found config files in reversed order
     and merges them into one ConfigInterface.

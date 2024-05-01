@@ -12,6 +12,9 @@ except ModuleNotFoundError:
     raise NotSupportedError('please install config-library[json5] for this')
 
 
+__all__ = ['load_json5']
+
+
 @register_loader('json5')
 def load_json5(fp: t.Union[str, os.PathLike]) -> dict:
     r"""

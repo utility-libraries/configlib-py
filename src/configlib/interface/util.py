@@ -6,6 +6,9 @@ import typing as t
 from .typing import KEY, INDEX
 
 
+__all__ = ['unify_key', 'Convert']
+
+
 def unify_key(key: KEY) -> t.Tuple[INDEX, ...]:
     if isinstance(key, slice):
         return tuple(k for k in (key.start, key.stop, key.step) if k is not None)

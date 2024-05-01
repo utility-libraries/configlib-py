@@ -9,6 +9,9 @@ import typing as t
 from ..registry import register_loader
 
 
+__all__ = ['load_jsonc']
+
+
 _REGEX = re.compile(r"(\".*?\"|\'.*?\')|(/\*.*?\*/|//[^\r\n]*$)", re.MULTILINE | re.DOTALL)
 
 

@@ -1,6 +1,18 @@
 # -*- coding=utf-8 -*-
 r"""
-
+>>> import configlib
+>>> from configlib.validation import *
+>>>
+>>> class DatabaseModel(BaseModel):
+>>>     host: IPvAnyAddress
+>>>     port: PositiveInt
+>>>
+>>> class ConfigModel(BaseModel):
+>>>     database: DatabaseModel
+>>>     debug: bool
+>>>
+>>> config: configlib.ConfigInterface = ...
+>>> config.validate(ConfigModel)
 """
 from pydantic import BaseModel, ConfigDict as _ConfigDict  # noqa
 from pydantic.types import *  # noqa

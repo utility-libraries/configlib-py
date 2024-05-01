@@ -9,6 +9,14 @@ from xml.etree import ElementTree
 from ..registry import register_loader
 
 
+__all__ = ['load_xml']
+
+
+import warnings
+warnings.warn(f"Module 'xml_loader' is soon deprecated as it's bad to generalise the format and will be"
+              f" removed in a future version.", PendingDeprecationWarning, stacklevel=2)
+
+
 @register_loader('xml')
 def load_xml(fp: t.Union[str, os.PathLike]) -> dict:
     r"""
@@ -19,6 +27,8 @@ def load_xml(fp: t.Union[str, os.PathLike]) -> dict:
         </warning>
     </message>
     """
+    warnings.warn(f"Module 'xml_loader' is soon deprecated as it's bad to generalise the format and will be"
+                  f" removed in a future version.", PendingDeprecationWarning, stacklevel=2)
     with open(fp, 'r') as file:
         root = ElementTree.parse(file).getroot()
     return {root.tag: node2dict(root)}

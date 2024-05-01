@@ -29,3 +29,4 @@ class ValidationError(ConfigLibError):
     r"""
     a configuration could not be validated
     """
+    pass

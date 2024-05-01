@@ -12,6 +12,9 @@ except ModuleNotFoundError:
     raise NotSupportedError('please install config-library[dotenv] for this')
 
 
+__all__ = ['load_dotenv']
+
+
 @register_loader('env')
 def load_dotenv(fp: t.Union[str, os.PathLike]) -> dict:
     r"""

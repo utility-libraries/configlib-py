@@ -8,6 +8,9 @@ import configparser
 from ..registry import register_loader
 
 
+__all__ = ['load_conf']
+
+
 @register_loader('ini', 'conf', 'config')
 def load_conf(fp: t.Union[str, os.PathLike]) -> dict:
     r"""

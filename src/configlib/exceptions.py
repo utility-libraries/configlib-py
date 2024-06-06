@@ -29,4 +29,9 @@ class ValidationError(ConfigLibError):
     r"""
     a configuration could not be validated
     """
-    pass
+    def pretty(self) -> str:
+        lines = []
+        for error in self.args[0]:
+            lines.append(f"- {error['type']}: {error['msg']} ({'->'.join(error['loc'])})")
+
+        return ''.join(lines)

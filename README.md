@@ -29,6 +29,7 @@ utility library to find and load configuration files
 
 - `pip install config-library`
 - `pip install config-library[all]`
+- `pip install config-library[validation]`
 - `pip install config-library[dotenv]`
 - `pip install config-library[json5]`
 - `pip install config-library[toml]`
@@ -36,13 +37,14 @@ utility library to find and load configuration files
 
 ## Install Variations
 
-| variation                | information                                     |
-|--------------------------|-------------------------------------------------|
-| `config-library[all]`    | adds all dependencies from the variations below |
-| `config-library[dotenv]` | adds support to load `.env` files               |
-| `config-library[json5]`  | adds support to load `.json5` files             |
-| `config-library[toml]`   | adds support to load `.toml` files              |
-| `config-library[yaml]`   | adds support to load `.yaml` files              |
+| variation                    | information                                                                                                     |
+|------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| `config-library[all]`        | adds all dependencies from the variations below                                                                 |
+| `config-library[validation]` | adds support to validate the loaded configuration against a [pydantic](https://docs.pydantic.dev/latest/) model |
+| `config-library[dotenv]`     | adds support to load `.env` files                                                                               |
+| `config-library[json5]`      | adds support to load `.json5` files                                                                             |
+| `config-library[toml]`       | adds support to load `.toml` files                                                                              |
+| `config-library[yaml]`       | adds support to load `.yaml` files                                                                              |
 
 ## Supported Config-Types
 
@@ -73,6 +75,23 @@ config = find_and_load("app.conf")
 address = config.get('database', 'address')
 # address = config.getstr('database', 'address')  # also possible to ensure it's of type str
 port = config.getint('database', 'port', fallback=5000)
+```
+
+### Validation
+
+```python
+from configlib import find_and_load, validation
+
+class ConfigModel(validation.BaseModel):
+    database: 'DatabaseModel'
+
+class DatabaseModel(validation.BaseModel):
+    address: validation.IPvAnyAddress
+    port: validation.PositiveInt
+    #port: validation.conint(gt=0, lt=65_535)  # if you want to be fancy
+
+config = find_and_load("config.ext")
+config.validate(ConfigModel)
 ```
 
 ### Config distribution

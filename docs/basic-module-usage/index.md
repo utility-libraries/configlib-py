@@ -22,7 +22,24 @@ config.get('key', ..., fallback="default")
 config.get*('key', ..., fallback="default")
 ```
 
-# Config distribution
+## Validation
+
+```python
+from configlib import find_and_load, validation
+
+class ConfigModel(validation.BaseModel):
+    database: 'DatabaseModel'
+
+class DatabaseModel(validation.BaseModel):
+    address: validation.IPvAnyAddress
+    port: validation.PositiveInt
+    #port: validation.conint(gt=0, lt=65_535)  # if you want to be fancy
+
+config = find_and_load("config.ext")
+config.validate(ConfigModel)
+```
+
+## Config distribution
 
 configlib offers a global configuration instance.
 This can help you avoid the hassle of passing the configuration instance to different functions.

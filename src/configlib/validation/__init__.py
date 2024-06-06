@@ -14,14 +14,21 @@ r"""
 >>> config: configlib.ConfigInterface = ...
 >>> config.validate(ConfigModel)
 """
-from pydantic import BaseModel, ConfigDict as _ConfigDict  # noqa
+from pydantic import BaseModel as __BaseModel, ConfigDict as _ConfigDict  # noqa
 from pydantic.types import *  # noqa
 from pydantic.networks import *  # noqa
 
 
+class BaseModel(__BaseModel):
+    r"""
+    basic configuration model. every unknown data is ignored
+    """
+    pass
+
+
 class OpenBaseModel(BaseModel):
     r"""
-    similar to BaseModel, but does allows for additional data
+    similar to BaseModel, but allows additional data
     """
     model_config = _ConfigDict(extra='allow')
 

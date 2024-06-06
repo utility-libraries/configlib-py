@@ -15,13 +15,14 @@ pip3 install config-library
 
 ## Install Variations
 
-| variation                | information                                     |
-|--------------------------|-------------------------------------------------|
-| `config-library[all]`    | adds all dependencies from the variations below |
-| `config-library[dotenv]` | adds support to load `.env` files               |
-| `config-library[json5]`  | adds support to load `.json5` files             |
-| `config-library[toml]`   | adds support to load `.toml` files              |
-| `config-library[yaml]`   | adds support to load `.yaml` files              |
+| variation                    | information                                                                                                     |
+|------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| `config-library[all]`        | adds all dependencies from the variations below                                                                 |
+| `config-library[validation]` | adds support to validate the loaded configuration against a [pydantic](https://docs.pydantic.dev/latest/) model |
+| `config-library[dotenv]`     | adds support to load `.env` files                                                                               |
+| `config-library[json5]`      | adds support to load `.json5` files                                                                             |
+| `config-library[toml]`       | adds support to load `.toml` files                                                                              |
+| `config-library[yaml]`       | adds support to load `.yaml` files                                                                              |
 
 ## Supported Config-Types
 
